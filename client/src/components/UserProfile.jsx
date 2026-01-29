@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Clock, MessageSquare, CheckCircle, Construction, ChevronRight, User, SortDesc, Filter, Plus } from "lucide-react";
+import { Clock, MessageSquare, CheckCircle, Construction, ChevronRight, User, SortDesc, Filter, Plus, Code2 } from "lucide-react";
 
 const API = "http://localhost:8000/stakeholder";
 
@@ -31,7 +31,7 @@ export default function UserProfile() {
             navigate("/dashboard");
         } else if (session.status === "validating") {
             navigate("/validator");
-        } else if (session.status === "finalized" || session.status === "developing") {
+        } else if (["finalized", "developing", "in_progress"].includes(session.status)) {
             navigate("/developer");
         } else {
             navigate("/dashboard");
@@ -51,6 +51,7 @@ export default function UserProfile() {
             case "validating": return "text-yellow-400 bg-yellow-500/10 border-yellow-500/20";
             case "finalized": return "text-green-400 bg-green-500/10 border-green-500/20";
             case "developing": return "text-purple-400 bg-purple-500/10 border-purple-500/20";
+            case "in_progress": return "text-orange-400 bg-orange-500/10 border-orange-500/20";
             default: return "text-zinc-400 bg-zinc-500/10 border-zinc-500/20";
         }
     };
@@ -156,12 +157,16 @@ export default function UserProfile() {
                             {/* Card Header */}
                             <div className="flex justify-between items-start mb-4">
                                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${session.status === 'questioning' ? 'bg-blue-500/10 text-blue-400' :
-                                        session.status === 'validating' ? 'bg-yellow-500/10 text-yellow-400' :
-                                            'bg-green-500/10 text-green-400'
+                                    session.status === 'validating' ? 'bg-yellow-500/10 text-yellow-400' :
+                                        session.status === 'developing' ? 'bg-purple-500/10 text-purple-400' :
+                                            session.status === 'in_progress' ? 'bg-orange-500/10 text-orange-400' :
+                                                'bg-green-500/10 text-green-400'
                                     }`}>
                                     {session.status === 'questioning' && <MessageSquare size={20} />}
                                     {session.status === 'validating' && <Construction size={20} />}
-                                    {(session.status === 'finalized' || session.status === 'developing') && <CheckCircle size={20} />}
+                                    {session.status === 'developing' && <Code2 size={20} />}
+                                    {session.status === 'in_progress' && <Clock size={20} />}
+                                    {session.status === 'finalized' && <CheckCircle size={20} />}
                                 </div>
                                 <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getStatusColor(session.status)}`}>
                                     {session.status}

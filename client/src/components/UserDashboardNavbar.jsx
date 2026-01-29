@@ -31,7 +31,8 @@ export default function UserDashboardNavbar() {
                 </div>
 
                 {/* Center: Navigation - Only visible if active session AND not on profile page */}
-                {sessionStorage.getItem("sessionId") && location.pathname !== "/profile" && (
+                {/* Center: Navigation - Only visible active workspace pages (not profile) */}
+                {location.pathname !== "/profile" && (
                     <nav className="hidden md:block absolute left-1/2 -translate-x-1/2">
                         <div className="flex items-center p-1 bg-zinc-900/50 border border-white/5 rounded-full backdrop-blur-sm">
                             {[

@@ -13,38 +13,7 @@ export default function UserOutput() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Save Project Logic
-    const [showSaveModal, setShowSaveModal] = useState(false);
-    const [filename, setFilename] = useState("");
-
-    const openSaveModal = () => {
-        const date = new Date();
-        const formattedDate = date.toISOString().split('T')[0];
-        const formattedTime = date.toTimeString().split(' ')[0].replace(/:/g, '-');
-        setFilename(`NextGent_Project_${formattedDate}_${formattedTime}`);
-        setShowSaveModal(true);
-    };
-
-    const handleSaveFile = () => {
-        if (!filename) return;
-
-        // Determine content to save
-        // If data is available, save it. If not, maybe save a placeholder or nothing?
-        // Assuming we save the currently visible data.
-        const content = data ? (typeof data === 'string' ? data : JSON.stringify(data, null, 2)) : "No content loaded.";
-        const extension = typeof data === 'string' ? 'md' : 'json'; // Default to json if object
-
-        const blob = new Blob([content], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${filename}.${extension}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        setShowSaveModal(false);
-    };
+    // State for modal removed as per PDF download request
 
     const fetchOutput = async (type) => {
         if (!sessionId) return;
@@ -85,21 +54,48 @@ export default function UserOutput() {
                     </h1>
 
                     <div className="flex gap-3">
-                        {data && (
-                            <button
-                                onClick={openSaveModal}
-                                className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-slate-medium text-sm flex items-center gap-2 transition-colors border border-white/10"
-                            >
-                                <FileText size={16} />
-                                Save Project
-                            </button>
-                        )}
                         <button
-                            onClick={() => {
-                                sessionStorage.removeItem("sessionId");
-                                window.location.href = "/profile";
+                            onClick={async () => {
+                                if (!sessionId) return;
+                                try {
+                                    await fetch(`${API}/exit/${sessionId}`, { method: "POST" });
+                                    sessionStorage.removeItem("sessionId");
+                                    window.location.href = "/profile";
+                                } catch (e) {
+                                    window.location.href = "/profile";
+                                }
                             }}
-                            className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg font-slate-medium text-sm transition-colors shadow-lg shadow-green-500/20"
+                            className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-xl font-slate-medium text-sm transition-colors border border-white/10"
+                        >
+                            Exit Project
+                        </button>
+                        <button
+                            onClick={async () => {
+                                if (!sessionId) return;
+                                try {
+                                    await fetch(`${API}/pause/${sessionId}`, { method: "POST" });
+                                    sessionStorage.removeItem("sessionId");
+                                    window.location.href = "/profile";
+                                } catch (e) {
+                                    window.location.href = "/profile";
+                                }
+                            }}
+                            className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-xl font-slate-medium text-sm transition-colors border border-white/10"
+                        >
+                            Pause
+                        </button>
+                        <button
+                            onClick={async () => {
+                                if (!sessionId) return;
+                                try {
+                                    await fetch(`${API}/finish/${sessionId}`, { method: "POST" });
+                                    sessionStorage.removeItem("sessionId");
+                                    window.location.href = "/profile";
+                                } catch (e) {
+                                    window.location.href = "/profile";
+                                }
+                            }}
+                            className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-xl font-slate-medium text-sm transition-colors shadow-lg shadow-green-500/20"
                         >
                             Finish Project
                         </button>
@@ -111,7 +107,7 @@ export default function UserOutput() {
                     <div className="flex items-center gap-1">
                         <button
                             onClick={() => fetchOutput("developer")}
-                            className={`px-4 py-2 rounded-l-lg text-sm font-slate-medium transition-colors
+                            className={`px-4 py-2 rounded-l-xl text-sm font-slate-medium transition-colors
                                 ${activeView === "developer"
                                     ? "bg-yellow-400 text-black border-y border-l border-yellow-400"
                                     : "bg-zinc-800 text-white hover:bg-zinc-700 border-y border-l border-zinc-700"}`}
@@ -120,13 +116,13 @@ export default function UserOutput() {
                         </button>
                         <button
                             onClick={() => {
-                                fetchOutput("developer").then(() => openSaveModal());
+                                window.open(`${API}/download/developer/${sessionId}`, "_blank");
                             }}
-                            className={`px-3 py-2 rounded-r-lg text-sm font-slate-medium border-l border-black/10 transition-colors
+                            className={`px-3 py-2 rounded-r-xl text-sm font-slate-medium border-l border-black/10 transition-colors
                                 ${activeView === "developer"
                                     ? "bg-yellow-400 text-black border-y border-r border-yellow-400 hover:bg-yellow-500"
                                     : "bg-zinc-800 text-white border-y border-r border-zinc-700 hover:bg-zinc-700"}`}
-                            title="Download Developer Output"
+                            title="Download Developer PDF"
                         >
                             <FileText size={14} />
                         </button>
@@ -135,7 +131,7 @@ export default function UserOutput() {
                     <div className="flex items-center gap-1">
                         <button
                             onClick={() => fetchOutput("stakeholder")}
-                            className={`px-4 py-2 rounded-l-lg text-sm font-slate-medium transition-colors
+                            className={`px-4 py-2 rounded-l-xl text-sm font-slate-medium transition-colors
                                 ${activeView === "stakeholder"
                                     ? "bg-yellow-400 text-black border-y border-l border-yellow-400"
                                     : "bg-zinc-800 text-white hover:bg-zinc-700 border-y border-l border-zinc-700"}`}
@@ -144,13 +140,13 @@ export default function UserOutput() {
                         </button>
                         <button
                             onClick={() => {
-                                fetchOutput("stakeholder").then(() => openSaveModal());
+                                window.open(`${API}/download/stakeholder/${sessionId}`, "_blank");
                             }}
-                            className={`px-3 py-2 rounded-r-lg text-sm font-slate-medium border-l border-black/10 transition-colors
+                            className={`px-3 py-2 rounded-r-xl text-sm font-slate-medium border-l border-black/10 transition-colors
                                 ${activeView === "stakeholder"
                                     ? "bg-yellow-400 text-black border-y border-r border-yellow-400 hover:bg-yellow-500"
                                     : "bg-zinc-800 text-white border-y border-r border-zinc-700 hover:bg-zinc-700"}`}
-                            title="Download Stakeholder Output"
+                            title="Download Stakeholder PDF"
                         >
                             <FileText size={14} />
                         </button>
@@ -184,51 +180,7 @@ export default function UserOutput() {
 
             </div>
 
-            {/* SAVE PROJECT MODAL */}
-            {showSaveModal && (
-                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-[#0A0A0A] border border-zinc-800 p-8 rounded-2xl w-full max-w-md shadow-2xl relative">
-                        <button
-                            onClick={() => setShowSaveModal(false)}
-                            className="absolute top-4 right-4 p-2 text-zinc-500 hover:text-white transition-colors z-10"
-                        >
-                            <X size={20} />
-                        </button>
 
-                        <h2 className="text-xl font-slate-bold text-white mb-2">Save Output</h2>
-                        <p className="text-zinc-500 text-sm mb-6">Name your file (saved as .json or .md based on content).</p>
-
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-xs font-slate-bold text-zinc-400 uppercase mb-2">Filename</label>
-                                <input
-                                    value={filename}
-                                    onChange={(e) => setFilename(e.target.value)}
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-blue-500 outline-none font-slate"
-                                    placeholder="e.g. NextGent_Output"
-                                    autoFocus
-                                />
-                            </div>
-
-                            <div className="flex justify-end gap-3 pt-2">
-                                <button
-                                    onClick={() => setShowSaveModal(false)}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-slate-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    onClick={handleSaveFile}
-                                    disabled={!filename.trim()}
-                                    className="px-5 py-2.5 bg-white text-black rounded-xl text-sm font-slate-bold hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    Save
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
