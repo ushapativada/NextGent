@@ -12,14 +12,14 @@ export default function AuthModal({ isOpen, onClose }) {
   const handleAuth = (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
       // For demo, we just assume success and redirect
       // In a real app, you'd save token to localStorage/Context here
       localStorage.setItem("authToken", "demo-token");
-      navigate("/dashboard");
+      navigate("/profile");
     }, 1500);
   };
 

@@ -29,6 +29,18 @@ def generate_specs(session_id: str):
 
     return {"specs": specs_markdown}
 
+@router.get("/specs")
+def get_specs(session_id: str):
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(404, "Invalid session")
+    
+    specs = session.get("developer_output")
+    if not specs:
+        raise HTTPException(404, "No specs found")
+        
+    return {"specs": specs}
+
 @router.get("/download")
 def download_specs(session_id: str):
     session = get_session(session_id)

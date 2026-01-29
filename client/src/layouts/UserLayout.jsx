@@ -17,7 +17,7 @@ export default function UserLayout() {
             </main>
 
             {/* Footer - Hidden on Dashboard */}
-            {!isDashboard && <Footer />}
+            {/* Footer Removed per request */}
         </div>
     );
 }

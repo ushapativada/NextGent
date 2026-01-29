@@ -1,9 +1,10 @@
 import { ChevronDown, LogOut, LayoutGrid, FileCheck, Code2, FileText, Bot } from "lucide-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import logo from '../assets/Logos/Logo.svg';
 
 export default function UserDashboardNavbar() {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSignOut = () => {
         // Clear any auth tokens
@@ -29,31 +30,33 @@ export default function UserDashboardNavbar() {
                     </span>
                 </div>
 
-                {/* Center: Navigation */}
-                <nav className="hidden md:block absolute left-1/2 -translate-x-1/2">
-                    <div className="flex items-center p-1 bg-zinc-900/50 border border-white/5 rounded-full backdrop-blur-sm">
-                        {[
-                            { path: "/dashboard", label: "Agent", icon: Bot },
-                            { path: "/validator", label: "Validator", icon: FileCheck },
-                            { path: "/developer", label: "Developer", icon: Code2 },
-                            { path: "/output", label: "Output", icon: FileText }
-                        ].map((item) => (
-                            <NavLink
-                                key={item.path}
-                                to={item.path}
-                                className={({ isActive }) =>
-                                    `relative px-4 py-2 rounded-full flex items-center gap-2 text-xs font-slate-medium transition-all duration-300 ${isActive
-                                        ? "text-black bg-white shadow-lg shadow-white/5"
-                                        : "text-zinc-500 hover:text-zinc-300 hover:bg-white/5"
-                                    }`
-                                }
-                            >
-                                <item.icon size={14} className="opacity-80" />
-                                {item.label}
-                            </NavLink>
-                        ))}
-                    </div>
-                </nav>
+                {/* Center: Navigation - Only visible if active session AND not on profile page */}
+                {sessionStorage.getItem("sessionId") && location.pathname !== "/profile" && (
+                    <nav className="hidden md:block absolute left-1/2 -translate-x-1/2">
+                        <div className="flex items-center p-1 bg-zinc-900/50 border border-white/5 rounded-full backdrop-blur-sm">
+                            {[
+                                { path: "/dashboard", label: "Agent", icon: Bot },
+                                { path: "/validator", label: "Validator", icon: FileCheck },
+                                { path: "/developer", label: "Developer", icon: Code2 },
+                                { path: "/output", label: "Output", icon: FileText }
+                            ].map((item) => (
+                                <NavLink
+                                    key={item.path}
+                                    to={item.path}
+                                    className={({ isActive }) =>
+                                        `relative px-4 py-2 rounded-full flex items-center gap-2 text-xs font-slate-medium transition-all duration-300 ${isActive
+                                            ? "text-black bg-white shadow-lg shadow-white/5"
+                                            : "text-zinc-500 hover:text-zinc-300 hover:bg-white/5"
+                                        }`
+                                    }
+                                >
+                                    <item.icon size={14} className="opacity-80" />
+                                    {item.label}
+                                </NavLink>
+                            ))}
+                        </div>
+                    </nav>
+                )}
 
                 {/* Right: User Actions */}
                 <div className="flex items-center gap-4">

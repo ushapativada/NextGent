@@ -103,9 +103,23 @@ export default function UserDashboard() {
                         <p className="text-xs text-zinc-500 font-slate">AI-powered stakeholder interview session</p>
                     </div>
                 </div>
-                <div className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-slate-medium flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    Active Session
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => {
+                            // "Saving" is effectively just keeping the ID in history.
+                            // We can just clear the current session ID from storage to "close" it and return to home
+                            sessionStorage.removeItem("sessionId");
+                            // Optionally redirect to dashboard/home
+                            window.location.href = "/dashboard";
+                        }}
+                        className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-slate-medium rounded-lg transition-colors border border-white/5"
+                    >
+                        Save & Exit
+                    </button>
+                    <div className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-slate-medium flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                        Active Session
+                    </div>
                 </div>
             </div>
 

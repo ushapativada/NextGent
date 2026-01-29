@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FileCheck, AlertCircle, RefreshCw, Send, CheckCircle, ShieldAlert } from "lucide-react";
+import { FileCheck, AlertCircle, RefreshCw, Send, CheckCircle, ShieldAlert, ArrowLeft, X } from "lucide-react";
 import ChatMessage from "../UI/ChatMessage";
 import ProblemOverview from "../UI/ProblemRefined";
 
@@ -149,9 +149,18 @@ export default function UserValidation() {
             <div className="flex-1 flex flex-col h-full bg-[#0A0A0A] border border-white/5 rounded-2xl relative shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="p-4 border-b border-white/5 bg-black/40 flex justify-between items-center backdrop-blur-sm z-10">
-                    <div>
-                        <h1 className="font-slate-bold text-white text-lg">Spec Validator</h1>
-                        <p className="text-xs text-zinc-500 font-slate">Refine requirements with AI</p>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => navigate("/developer")}
+                            className="p-2 -ml-2 hover:bg-white/5 rounded-lg text-zinc-400 hover:text-white transition-colors"
+                            title="Back to Developer"
+                        >
+                            <ArrowLeft size={20} />
+                        </button>
+                        <div>
+                            <h1 className="font-slate-bold text-white text-lg">Spec Validator</h1>
+                            <p className="text-xs text-zinc-500 font-slate">Refine requirements with AI</p>
+                        </div>
                     </div>
                     <button
                         onClick={finalize}
@@ -210,27 +219,36 @@ export default function UserValidation() {
                     <div className="bg-[#0A0A0A] border border-zinc-800 p-8 rounded-2xl w-full max-w-lg max-h-[90vh] shadow-2xl relative flex flex-col">
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-blue-500" />
 
-                        <div className="flex items-start justify-between mb-6 shrink-0">
+                        <button
+                            onClick={() => setShowResult(false)}
+                            className="absolute top-4 right-4 p-2 text-zinc-500 hover:text-white transition-colors z-10"
+                        >
+                            <X size={20} />
+                        </button>
+
+                        {/* HEADER */}
+                        <div className="flex items-start justify-between mb-6 shrink-0 mt-2">
                             <div>
                                 <h2 className="text-2xl font-slate-bold text-white mb-1">Validation Result</h2>
                                 <p className="text-zinc-500 text-sm">Review the final assessment</p>
                             </div>
-                            <div className={`px-3 py-1 rounded-full text-xs font-slate-bold border ${finalResult.validation_result.feasible
+                            <div className={`px-3 py-1 rounded-full text-xs font-slate-bold border ${finalResult?.validation_result?.feasible
                                 ? "bg-green-500/10 text-green-400 border-green-500/20"
                                 : "bg-red-500/10 text-red-400 border-red-500/20"
                                 }`}>
-                                {finalResult.validation_result.feasible ? "FEASIBLE" : "NEEDS REVISION"}
+                                {finalResult?.validation_result?.feasible ? "FEASIBLE" : "NEEDS REVISION"}
                             </div>
                         </div>
 
-                        <div className="space-y-6 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-zinc-800">
+                        {/* BODY */}
+                        <div className="space-y-6 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-zinc-800 flex-1">
                             <div className="space-y-2">
                                 <h3 className="text-xs font-slate-bold text-zinc-400 uppercase flex items-center gap-2">
                                     <ShieldAlert size={14} className="text-yellow-500" />
                                     Risk Assessment
                                 </h3>
                                 <div className="bg-zinc-900/50 rounded-xl p-4 border border-white/5">
-                                    {finalResult.validation_result.key_risks?.length ? (
+                                    {finalResult?.validation_result?.key_risks?.length ? (
                                         <ul className="list-disc list-inside text-sm text-zinc-300 space-y-2">
                                             {finalResult.validation_result.key_risks.map((risk, i) => (
                                                 <li key={i}>{risk}</li>
@@ -245,11 +263,12 @@ export default function UserValidation() {
                             <div className="space-y-2">
                                 <h3 className="text-xs font-slate-bold text-zinc-400 uppercase">Final Notes</h3>
                                 <p className="text-sm text-zinc-300 leading-relaxed bg-zinc-900/50 p-4 rounded-xl border border-white/5">
-                                    {finalResult.validation_result.final_notes}
+                                    {finalResult?.validation_result?.final_notes}
                                 </p>
                             </div>
                         </div>
 
+                        {/* FOOTER */}
                         <div className="mt-8 flex justify-end gap-3 shrink-0">
                             <button
                                 onClick={() => setShowResult(false)}

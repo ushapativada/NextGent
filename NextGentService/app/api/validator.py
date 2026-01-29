@@ -18,7 +18,7 @@ def start_validation(session_id: str):
     if not session:
         raise HTTPException(404, "Invalid session")
 
-    require_status(session, ["validating", "finalized"])
+    require_status(session, ["validating", "finalized", "developing"])
 
     intro_message = (
         "Validation phase started. "
@@ -39,7 +39,7 @@ def validator_chat(session_id: str, message: str):
     if not session:
         raise HTTPException(404, "Invalid session")
 
-    require_status(session, ["validating", "finalized"])
+    require_status(session, ["validating", "finalized", "developing"])
 
     append_validator_message(session_id, "user", message)
 
@@ -62,7 +62,7 @@ def finalize_validation_phase(session_id: str):
     if not session:
         raise HTTPException(404, "Invalid session")
 
-    require_status(session, "validating")
+    require_status(session, ["validating", "developing"])
 
     updated_refined_problem, updated_constraints = apply_validation_feedback(
         refined_problem=session["refined_problem"],

@@ -59,7 +59,35 @@ export default function UserDeveloper() {
     useEffect(() => {
         if (!sessionId) {
             setError("No active session. Please start or select a session from the Dashboard.");
+            return;
         }
+
+        const fetchSpecs = async () => {
+            setLoading(true);
+            try {
+                // Try to fetch existing specs (assuming we add a GET endpoint or reuse the session data logic)
+                // There isn't a dedicated GET /developer/specs endpoint, but we can infer:
+                // The backend doesn't currently have a separate GET endpoint for JUST viewing without generating.
+                // However, we can use the /developer/download endpoint to check existence, or better, 
+                // we rely on the generate endpoint being idempotent or add a new getter.
+                // Actually, let's just use the `generate` endpoint but handle the "already exists" case? 
+                // No, generating is expensive.
+                // Let's quickly add a GET endpoint or just fetch session details?
+                // Wait, we don't have a GET /developer/specs. 
+                // Let's modify the component to just "try" to fetch via a new endpoint I will create.
+                const res = await fetch(`${API}/specs?session_id=${sessionId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setSpecs(data.specs);
+                }
+            } catch (e) {
+                // Silent fail if no specs yet
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchSpecs();
+
     }, [sessionId]);
 
     // Improved Parsing Logic
@@ -163,6 +191,33 @@ export default function UserDeveloper() {
         }
     ].filter(s => s.content); // Only show slides that have content
 
+    // Save Project Logic
+    const [showSaveModal, setShowSaveModal] = useState(false);
+    const [filename, setFilename] = useState("");
+
+    const openSaveModal = () => {
+        const date = new Date();
+        const formattedDate = date.toISOString().split('T')[0];
+        const formattedTime = date.toTimeString().split(' ')[0].replace(/:/g, '-');
+        setFilename(`NextGent_Specs_${formattedDate}_${formattedTime}`);
+        setShowSaveModal(true);
+    };
+
+    const handleSaveFile = () => {
+        if (!filename) return;
+
+        const blob = new Blob([specs], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${filename}.md`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        setShowSaveModal(false);
+    };
+
     return (
         <div className="max-w-6xl mx-auto h-[calc(100vh-140px)] flex flex-col">
 
@@ -197,10 +252,17 @@ export default function UserDeveloper() {
                             </button>
                             <button
                                 onClick={downloadPDF}
-                                className="bg-white text-black hover:bg-zinc-200 px-6 py-3 rounded-2xl font-slate-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-white/10"
+                                className="bg-zinc-800 text-white hover:bg-zinc-700 px-6 py-3 rounded-2xl font-slate-bold text-sm flex items-center gap-2 transition-all border border-white/5"
                             >
                                 <Download size={18} />
                                 PDF Export
+                            </button>
+                            <button
+                                onClick={openSaveModal}
+                                className="bg-white text-black hover:bg-zinc-200 px-6 py-3 rounded-2xl font-slate-bold text-sm flex items-center gap-2 transition-all shadow-lg shadow-white/10"
+                            >
+                                <FileText size={18} />
+                                Save Project
                             </button>
                         </>
                     )}
@@ -285,6 +347,45 @@ export default function UserDeveloper() {
                     </div>
                 )}
             </div>
+
+            {/* SAVE PROJECT MODAL */}
+            {showSaveModal && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-[#0A0A0A] border border-zinc-800 p-8 rounded-2xl w-full max-w-md shadow-2xl relative">
+                        <h2 className="text-xl font-slate-bold text-white mb-2">Save Project</h2>
+                        <p className="text-zinc-500 text-sm mb-6">Enter a name for your specification file.</p>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-slate-bold text-zinc-400 uppercase mb-2">Filename</label>
+                                <input
+                                    value={filename}
+                                    onChange={(e) => setFilename(e.target.value)}
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-blue-500 outline-none font-slate"
+                                    placeholder="e.g. My_Project_Specs"
+                                    autoFocus
+                                />
+                            </div>
+
+                            <div className="flex justify-end gap-3 pt-2">
+                                <button
+                                    onClick={() => setShowSaveModal(false)}
+                                    className="px-5 py-2.5 rounded-xl text-sm font-slate-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleSaveFile}
+                                    disabled={!filename.trim()}
+                                    className="px-5 py-2.5 bg-white text-black rounded-xl text-sm font-slate-bold hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    Save File
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

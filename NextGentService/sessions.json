@@ -20,7 +20,7 @@
   "93764be1-7ae1-4911-afb7-2d868aeae02d": {
     "session_id": "93764be1-7ae1-4911-afb7-2d868aeae02d",
     "user_id": "default_user",
-    "status": "developing",
+    "status": "finalized",
     "stakeholder_chat": [
       {
         "role": "assistant",
@@ -118,21 +118,300 @@
       {
         "role": "assistant",
         "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
       }
     ],
     "developer_output": "# Functional Requirements\n* The system should be able to manage patient records for 8-12 inpatient beds\n* The system should be able to handle OPD footfall of 40-60 patients per day in the initial phase\n* The system should have a user-friendly interface for doctors, nurses, and other hospital staff to manage patient records and appointments\n* The system should be able to generate reports on patient admissions, discharges, and treatments\n* The system should have a billing and payment system to manage patient payments and invoices\n* The system should be able to integrate with medical equipment and devices to collect patient data\n* The system should have a scheduling system for appointments and surgeries\n* The system should have a pharmacy management system to manage medication and inventory\n\n# Non-Functional Requirements\n* The system should be scalable to accommodate increasing patient load and hospital expansion\n* The system should be secure and compliant with healthcare regulations to protect patient data\n* The system should be reliable and available 24/7 to ensure continuous patient care\n* The system should be maintainable and easy to update with new features and technologies\n* The system should be compatible with different devices and browsers to ensure accessibility\n* The system should have a backup and recovery system to prevent data loss in case of system failure\n* The system should have a user authentication and authorization system to ensure only authorized personnel can access patient data\n* The system should be able to handle a budget of 30 lakhs and provide a cost-effective solution for the hospital",
     "created_at": "2026-01-29T17:33:25.220466",
-    "updated_at": "2026-01-29T17:42:23.142622",
+    "updated_at": "2026-01-29T17:55:20.228790",
     "validated_problem": {
       "feasible": false,
       "key_risks": [
-        "Insufficient budget of 30 lakhs to establish a fully functional hospital with inpatient facilities, minor surgical procedures, and emergency stabilization services",
-        "Technical complexity of setting up a hospital with limited budget and resources",
-        "Location constraints in Vizag may impact the availability of skilled staff, diagnostic partners, and other essential services",
-        "Scope of services offered may exceed the allocated budget, leading to financial constraints",
-        "Regulatory feasibility concerns, as setting up a hospital requires compliance with various healthcare regulations and standards"
+        "Insufficient budget to cover infrastructure, equipment, and staffing costs",
+        "Technical complexity of providing medical services with limited resources",
+        "Location constraints in Vizag may impact accessibility and availability of tied-up diagnostic partners",
+        "Scope of services may exceed budget, leading to financial instability",
+        "Regulatory feasibility concerns due to limited service scope and lean staffing model"
       ],
-      "final_notes": "The project's feasibility is questionable due to the significant mismatch between the scope of services and the allocated budget. The budget of 30 lakhs is extremely low for establishing a hospital with inpatient facilities, minor surgical procedures, and emergency stabilization services. Additionally, the technical complexity, location constraints, and regulatory requirements may further exacerbate the challenges, making it unlikely for the project to be successful with the given budget and constraints."
+      "final_notes": "The project's budget of 30 lakhs is highly unrealistic for establishing a hospital with the specified services, including inpatient facilities, surgical procedures, and emergency services. The technical complexity, location constraints, and regulatory requirements further exacerbate the feasibility concerns."
     }
+  },
+  "01e6727e-5a9f-42fc-8dc2-7af732ce9a07": {
+    "session_id": "01e6727e-5a9f-42fc-8dc2-7af732ce9a07",
+    "user_id": "default_user",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-01-29T17:55:06.254553",
+    "updated_at": "2026-01-29T17:55:06.809318"
+  },
+  "ce44527e-0937-43a6-921b-f05a03fa8548": {
+    "session_id": "ce44527e-0937-43a6-921b-f05a03fa8548",
+    "user_id": "default_user",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-01-29T17:55:06.258734",
+    "updated_at": "2026-01-29T17:55:06.811867"
+  },
+  "40e709f7-574f-499e-bfcc-d51320707fc5": {
+    "session_id": "40e709f7-574f-499e-bfcc-d51320707fc5",
+    "user_id": "default_user",
+    "status": "developing",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of this project?"
+      },
+      {
+        "role": "user",
+        "content": "I want to start a restaurant"
+      },
+      {
+        "role": "assistant",
+        "content": "What type of restaurant do you want to start?"
+      },
+      {
+        "role": "user",
+        "content": "I want to start a **small, quick-service restaurant** focused on affordable, hygienic South Indian and basic North Indian meals, primarily targeting daily office-goers and students. The model is low-frills, high-turnover, with limited seating and a strong emphasis on takeaway and online orders. The menu will be intentionally tight to control costs, reduce waste, and maintain consistency. The goal isn\u2019t fine dining\u2014it\u2019s predictable quality, fast service, and steady cash flow."
+      },
+      {
+        "role": "assistant",
+        "content": "What is your estimated initial investment for this restaurant venture?"
+      },
+      {
+        "role": "user",
+        "content": "The estimated initial investment is around **\u20b98\u201310 lakhs**, covering a rented space, basic kitchen setup, initial raw materials, licenses, and a small working capital buffer. This assumes a compact outlet, no premium interiors, and a tightly controlled menu. Anything below this would compromise hygiene or operations, and anything significantly above it would be unnecessary for the model I\u2019m targeting."
+      }
+    ],
+    "raw_problem": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of this project?"
+      },
+      {
+        "role": "user",
+        "content": "I want to start a restaurant"
+      },
+      {
+        "role": "assistant",
+        "content": "What type of restaurant do you want to start?"
+      },
+      {
+        "role": "user",
+        "content": "I want to start a **small, quick-service restaurant** focused on affordable, hygienic South Indian and basic North Indian meals, primarily targeting daily office-goers and students. The model is low-frills, high-turnover, with limited seating and a strong emphasis on takeaway and online orders. The menu will be intentionally tight to control costs, reduce waste, and maintain consistency. The goal isn\u2019t fine dining\u2014it\u2019s predictable quality, fast service, and steady cash flow."
+      },
+      {
+        "role": "assistant",
+        "content": "What is your estimated initial investment for this restaurant venture?"
+      },
+      {
+        "role": "user",
+        "content": "The estimated initial investment is around **\u20b98\u201310 lakhs**, covering a rented space, basic kitchen setup, initial raw materials, licenses, and a small working capital buffer. This assumes a compact outlet, no premium interiors, and a tightly controlled menu. Anything below this would compromise hygiene or operations, and anything significantly above it would be unnecessary for the model I\u2019m targeting."
+      }
+    ],
+    "primary_constraints": [
+      "Initial investment limited to \u20b98\u201310 lakhs",
+      "Need to maintain hygiene and operational standards without compromising on costs",
+      "Requirement for predictable quality, fast service, and steady cash flow"
+    ],
+    "refined_problem": {
+      "problem_summary": "The stakeholder aims to establish a small, quick-service restaurant specializing in affordable and hygienic South Indian and basic North Indian meals, primarily targeting office-goers and students, with an initial investment of \u20b98\u201310 lakhs.",
+      "in_scope": [
+        "Establishing a small, quick-service restaurant",
+        "Serving affordable and hygienic South Indian and basic North Indian meals",
+        "Targeting daily office-goers and students",
+        "Implementing a low-frills, high-turnover model with limited seating and a strong emphasis on takeaway and online orders",
+        "Maintaining a tight menu to control costs, reduce waste, and ensure consistency"
+      ],
+      "out_of_scope": [
+        "Fine dining experiences",
+        "Premium interiors",
+        "Expansive menus"
+      ],
+      "assumptions": [
+        "The target market (office-goers and students) will be receptive to the proposed restaurant concept",
+        "The initial investment of \u20b98\u201310 lakhs will be sufficient to cover all necessary expenses",
+        "A compact outlet with basic kitchen setup will be adequate for the intended operations"
+      ],
+      "constraints": [
+        "Initial investment limited to \u20b98\u201310 lakhs",
+        "Need to maintain hygiene and operational standards without compromising on costs",
+        "Requirement for predictable quality, fast service, and steady cash flow"
+      ],
+      "open_points": [
+        "Specific location for the restaurant",
+        "Detailed menu and pricing strategy",
+        "Marketing and promotional plans to attract the target audience",
+        "Staffing and training requirements"
+      ],
+      "feasible": true,
+      "feasibility_reason": "No concrete constraint updates were found in the validator conversation."
+    },
+    "validator_chat": [
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      }
+    ],
+    "developer_output": "# Functional Requirements\n* The system should be able to manage and track inventory to ensure predictable quality\n* The system should be able to handle cash transactions efficiently to ensure steady cash flow\n* The system should be able to manage and schedule staff to maintain operational standards\n* The system should be able to track and maintain hygiene standards\n* The system should be able to provide fast service to customers\n* The system should be able to manage and track customer orders and sales\n* The system should be able to generate reports on sales, inventory, and cash flow\n* The system should be able to handle limited initial investment of \u20b98\u201310 lakhs\n\n# Non-Functional Requirements\n* The system should be cost-effective to maintain and operate\n* The system should be scalable to accommodate future growth\n* The system should be reliable and available at all times to ensure steady cash flow\n* The system should be secure to protect customer and business data\n* The system should be easy to use and navigate for staff to maintain operational standards\n* The system should be able to integrate with existing systems and infrastructure\n* The system should be able to provide real-time updates and notifications to ensure fast service and predictable quality\n* The system should be able to handle a high volume of transactions and customer traffic",
+    "created_at": "2026-01-29T18:02:29.952149",
+    "updated_at": "2026-01-29T18:11:36.138624",
+    "validated_problem": {
+      "feasible": true,
+      "key_risks": [
+        "Limited initial investment may pose challenges in maintaining high hygiene and operational standards",
+        "Dependence on a tight menu and limited seating may impact customer satisfaction and retention",
+        "Competition from existing restaurants and food establishments may affect market share"
+      ],
+      "final_notes": "The concept of a small, quick-service restaurant serving affordable and hygienic South Indian and basic North Indian meals is feasible within the given budget and constraints. However, careful planning and execution are necessary to mitigate potential risks and ensure the success of the venture."
+    }
+  },
+  "d7958a8c-24e1-4732-ae40-859737359e3f": {
+    "session_id": "d7958a8c-24e1-4732-ae40-859737359e3f",
+    "user_id": "default_user",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-01-29T18:02:29.953265",
+    "updated_at": "2026-01-29T18:02:30.289314"
+  },
+  "8c226d70-da33-40d5-b410-17f7b93dda12": {
+    "session_id": "8c226d70-da33-40d5-b410-17f7b93dda12",
+    "user_id": "default_user",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-01-29T18:09:41.002204",
+    "updated_at": "2026-01-29T18:09:41.347554"
+  },
+  "1758a0b2-716f-4619-9b7c-fa7c0619510c": {
+    "session_id": "1758a0b2-716f-4619-9b7c-fa7c0619510c",
+    "user_id": "default_user",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-01-29T18:09:41.321838",
+    "updated_at": "2026-01-29T18:09:41.581674"
   }
 }
