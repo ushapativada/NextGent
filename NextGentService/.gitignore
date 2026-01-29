@@ -1,5 +1,6 @@
 .env
 venv
+env.bat
 app/__pycache__
 app/agents/__pycache__
 app/api/__pycache__
