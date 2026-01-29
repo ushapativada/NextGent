@@ -1,8 +1,11 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import UserDashboardNavbar from "../components/UserDashboardNavbar";
 import Footer from "../components/footer";
 
 export default function UserLayout() {
+    const location = useLocation();
+    const isDashboard = location.pathname === "/dashboard";
+
     return (
         <div className="min-h-screen flex flex-col">
             {/* NavBar  */}
@@ -13,8 +16,8 @@ export default function UserLayout() {
                 <Outlet />
             </main>
 
-            {/* Footer */}
-            <Footer />
+            {/* Footer - Hidden on Dashboard */}
+            {!isDashboard && <Footer />}
         </div>
     );
 }

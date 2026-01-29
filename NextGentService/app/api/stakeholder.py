@@ -6,12 +6,23 @@ from app.state.session_store import (
     get_session,
     append_stakeholder_message,
     update_session,
+    list_sessions,
 )
 from app.state.guards import require_status
 from app.agents.questioning import generate_next_question, clarity_reached
 
 router = APIRouter(prefix="/stakeholder", tags=["Stakeholder"])
 
+@router.get("/sessions")
+def get_all_sessions():
+    return list_sessions()
+
+@router.get("/chat")
+def get_chat_history(session_id: str):
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(404, "Invalid session")
+    return {"chat": session.get("stakeholder_chat", [])}
 
 @router.post("/start")
 def start_session():
