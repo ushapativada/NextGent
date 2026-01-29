@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import OutputViewer from "../UI/OutputViewer";
-import { FileText, X } from "lucide-react";
+import { Copy, Check, X } from "lucide-react";
 
 
 const API = "http://localhost:8000/output";
@@ -12,8 +12,7 @@ export default function UserOutput() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    // State for modal removed as per PDF download request
+    const [copied, setCopied] = useState(false);
 
     const fetchOutput = async (type) => {
         if (!sessionId) return;
@@ -21,6 +20,7 @@ export default function UserOutput() {
         setActiveView(type);
         setLoading(true);
         setError(null);
+        setCopied(false);
 
         try {
             const res = await fetch(`${API}/${type}/${sessionId}`);
@@ -34,6 +34,34 @@ export default function UserOutput() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const copyToClipboard = () => {
+        if (!data) return;
+
+        const formatOutput = (obj) => {
+            let text = "";
+            for (const [key, value] of Object.entries(obj)) {
+                text += `## ${key.replace(/_/g, " ").toUpperCase()}\n`;
+                if (Array.isArray(value)) {
+                    text += value.map(item => `• ${item}`).join("\n");
+                } else if (typeof value === "object" && value !== null) {
+                    text += Object.entries(value)
+                        .map(([k, v]) => `${k.replace(/_/g, " ")}: ${v}`)
+                        .join("\n");
+                } else {
+                    text += value;
+                }
+                text += "\n\n";
+            }
+            return text;
+        };
+
+        const textToCopy = formatOutput(data);
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
     };
 
     // Auto-fetch developer output on load
@@ -115,16 +143,15 @@ export default function UserOutput() {
                             Developer Output
                         </button>
                         <button
-                            onClick={() => {
-                                window.open(`${API}/download/developer/${sessionId}`, "_blank");
-                            }}
+                            onClick={copyToClipboard}
+                            disabled={activeView !== "developer" || !data}
                             className={`px-3 py-2 rounded-r-xl text-sm font-slate-medium border-l border-black/10 transition-colors
                                 ${activeView === "developer"
                                     ? "bg-yellow-400 text-black border-y border-r border-yellow-400 hover:bg-yellow-500"
-                                    : "bg-zinc-800 text-white border-y border-r border-zinc-700 hover:bg-zinc-700"}`}
-                            title="Download Developer PDF"
+                                    : "bg-zinc-800 text-zinc-500 border-y border-r border-zinc-700"}`}
+                            title="Copy Developer Text"
                         >
-                            <FileText size={14} />
+                            {copied && activeView === "developer" ? <Check size={14} /> : <Copy size={14} />}
                         </button>
                     </div>
 
@@ -139,16 +166,15 @@ export default function UserOutput() {
                             Stakeholder Output
                         </button>
                         <button
-                            onClick={() => {
-                                window.open(`${API}/download/stakeholder/${sessionId}`, "_blank");
-                            }}
+                            onClick={copyToClipboard}
+                            disabled={activeView !== "stakeholder" || !data}
                             className={`px-3 py-2 rounded-r-xl text-sm font-slate-medium border-l border-black/10 transition-colors
                                 ${activeView === "stakeholder"
                                     ? "bg-yellow-400 text-black border-y border-r border-yellow-400 hover:bg-yellow-500"
-                                    : "bg-zinc-800 text-white border-y border-r border-zinc-700 hover:bg-zinc-700"}`}
-                            title="Download Stakeholder PDF"
+                                    : "bg-zinc-800 text-zinc-500 border-y border-r border-zinc-700"}`}
+                            title="Copy Stakeholder Text"
                         >
-                            <FileText size={14} />
+                            {copied && activeView === "stakeholder" ? <Check size={14} /> : <Copy size={14} />}
                         </button>
                     </div>
                 </div>

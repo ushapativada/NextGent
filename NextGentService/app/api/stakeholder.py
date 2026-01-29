@@ -96,3 +96,11 @@ def stakeholder_message(session_id: str, message: str):
     session["status"] = "validating"
 
     return {"message": "Stakeholder feedback received. Validation reopened."}
+@router.post("/rename")
+def rename_session(session_id: str, new_name: str):
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(404, "Invalid session")
+    
+    update_session(session_id, project_name=new_name)
+    return {"message": "Project renamed successfully", "new_name": new_name}

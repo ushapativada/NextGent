@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Clock, MessageSquare, CheckCircle, Construction, ChevronRight, User, SortDesc, Filter, Plus, Code2 } from "lucide-react";
+import { Clock, MessageSquare, CheckCircle, Construction, ChevronRight, User, SortDesc, Filter, Plus, Code2, Edit2, Check, X as CloseIcon } from "lucide-react";
 
 const API = "http://localhost:8000/stakeholder";
 
@@ -9,8 +9,11 @@ export default function UserProfile() {
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sortOrder, setSortOrder] = useState("newest"); // "newest", "oldest", "status"
+    const [editingId, setEditingId] = useState(null);
+    const [editValue, setEditValue] = useState("");
 
-    useEffect(() => {
+    const fetchSessions = () => {
+        setLoading(true);
         fetch(`${API}/sessions`)
             .then(res => res.json())
             .then(data => {
@@ -21,9 +24,14 @@ export default function UserProfile() {
                 console.error("Failed to fetch sessions", err);
                 setLoading(false);
             });
+    };
+
+    useEffect(() => {
+        fetchSessions();
     }, []);
 
     const resumeSession = (session) => {
+        if (editingId) return; // Don't navigate while editing
         sessionStorage.setItem("sessionId", session.session_id);
 
         // Intelligent routing based on status
@@ -36,6 +44,32 @@ export default function UserProfile() {
         } else {
             navigate("/dashboard");
         }
+    };
+
+    const handleRename = async (e, sessionId) => {
+        e.stopPropagation();
+        if (!editValue.trim()) {
+            setEditingId(null);
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API}/rename?session_id=${sessionId}&new_name=${encodeURIComponent(editValue)}`, {
+                method: "POST"
+            });
+            if (res.ok) {
+                setEditingId(null);
+                fetchSessions();
+            }
+        } catch (err) {
+            console.error("Failed to rename", err);
+        }
+    };
+
+    const startEditing = (e, session) => {
+        e.stopPropagation();
+        setEditingId(session.session_id);
+        setEditValue(session.project_name || `Project ${session.session_id.slice(0, 8)}`);
     };
 
     const formatDate = (isoString) => {
@@ -175,12 +209,53 @@ export default function UserProfile() {
 
                             {/* Card Content */}
                             <div className="flex-1">
-                                <h3 className="text-lg font-slate-bold text-white mb-2 group-hover:text-blue-400 transition-colors truncate">
-                                    Project {session.session_id.slice(0, 8)}
-                                </h3>
-                                <p className="text-zinc-500 text-xs font-slate leading-relaxed line-clamp-2">
-                                    Last updated on {formatDate(session.updated_at)} at {new Date(session.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                </p>
+                                {editingId === session.session_id ? (
+                                    <div className="flex flex-col gap-2" onClick={e => e.stopPropagation()}>
+                                        <input
+                                            type="text"
+                                            value={editValue}
+                                            onChange={e => setEditValue(e.target.value)}
+                                            onKeyDown={e => {
+                                                if (e.key === 'Enter') handleRename(e, session.session_id);
+                                                if (e.key === 'Escape') setEditingId(null);
+                                            }}
+                                            className="bg-zinc-800 border border-blue-500/50 rounded-lg px-3 py-1.5 text-white font-slate outline-none focus:ring-1 focus:ring-blue-500/50 w-full"
+                                            autoFocus
+                                        />
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={e => handleRename(e, session.session_id)}
+                                                className="p-1 px-3 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-colors"
+                                            >
+                                                <Check size={14} />
+                                            </button>
+                                            <button
+                                                onClick={e => { e.stopPropagation(); setEditingId(null); }}
+                                                className="p-1 px-3 bg-zinc-800 text-zinc-400 rounded-md hover:text-white transition-colors"
+                                            >
+                                                <CloseIcon size={14} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="relative group/title px-1">
+                                        <div className="flex items-center justify-between gap-2 max-w-full">
+                                            <h3 className="text-lg font-slate-bold text-white mb-2 group-hover:text-blue-400 transition-colors truncate flex-1">
+                                                {session.project_name || `Project ${session.session_id.slice(0, 8)}`}
+                                            </h3>
+                                            <button
+                                                onClick={e => startEditing(e, session)}
+                                                className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-blue-400 transition-all mb-2"
+                                                title="Rename project"
+                                            >
+                                                <Edit2 size={14} />
+                                            </button>
+                                        </div>
+                                        <p className="text-zinc-500 text-xs font-slate leading-relaxed line-clamp-2">
+                                            Last updated on {formatDate(session.updated_at)} at {new Date(session.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Card Footer */}

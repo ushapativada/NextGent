@@ -186,7 +186,7 @@
     ],
     "developer_output": "# Functional Requirements\n* The system should be able to manage patient records for 8-12 inpatient beds\n* The system should be able to handle OPD footfall of 40-60 patients per day in the initial phase\n* The system should have a user-friendly interface for doctors, nurses, and other hospital staff to manage patient records and appointments\n* The system should be able to generate reports on patient admissions, discharges, and treatments\n* The system should have a billing and payment system to manage patient payments and invoices\n* The system should be able to integrate with medical equipment and devices to collect patient data\n* The system should have a scheduling system for appointments and surgeries\n* The system should have a pharmacy management system to manage medication and inventory\n\n# Non-Functional Requirements\n* The system should be scalable to accommodate increasing patient load and hospital expansion\n* The system should be secure and compliant with healthcare regulations to protect patient data\n* The system should be reliable and available 24/7 to ensure continuous patient care\n* The system should be maintainable and easy to update with new features and technologies\n* The system should be compatible with different devices and browsers to ensure accessibility\n* The system should have a backup and recovery system to prevent data loss in case of system failure\n* The system should have a user authentication and authorization system to ensure only authorized personnel can access patient data\n* The system should be able to handle a budget of 30 lakhs and provide a cost-effective solution for the hospital",
     "created_at": "2026-01-29T17:33:25.220466",
-    "updated_at": "2026-01-29T18:14:20.698105",
+    "updated_at": "2026-01-29T18:31:51.829454",
     "validated_problem": {
       "feasible": false,
       "key_risks": [
@@ -443,7 +443,7 @@
   "8cdce3e2-f13e-4d56-8271-2dd391a2e59a": {
     "session_id": "8cdce3e2-f13e-4d56-8271-2dd391a2e59a",
     "user_id": "default_user",
-    "status": "developing",
+    "status": "finalized",
     "stakeholder_chat": [
       {
         "role": "assistant",
@@ -547,7 +547,7 @@
     ],
     "developer_output": "# Functional Requirements\n* The system should be able to manage restaurant operations within the estimated budget of 12 lakhs.\n* The system should provide a mechanism to track and control expenses to ensure adherence to the budget.\n* The system should have a feature to generate reports on expenses and budget utilization.\n* The system should be able to handle user authentication and authorization to ensure that only authorized personnel can access and manage the system.\n* The system should have a user-friendly interface to facilitate easy navigation and management of restaurant operations.\n\n# Non-Functional Requirements\n* The system should be scalable to accommodate increasing demand and growth of the restaurant.\n* The system should ensure data security and integrity to protect sensitive information related to the restaurant's operations and finances.\n* The system should be reliable and available at all times to ensure uninterrupted operations.\n* The system should be maintainable and easy to update to ensure that it remains relevant and effective in managing restaurant operations.\n* The system should be compatible with existing hardware and software infrastructure to minimize costs and ensure seamless integration.",
     "created_at": "2026-01-29T18:14:57.378199",
-    "updated_at": "2026-01-29T18:17:47.228476",
+    "updated_at": "2026-01-29T18:39:22.159047",
     "validated_problem": {
       "feasible": false,
       "key_risks": [
@@ -557,6 +557,137 @@
         "Regulatory feasibility concerns due to limited budget for compliance"
       ],
       "final_notes": "The estimated budget of 12 lakhs may not be sufficient to cover all necessary expenses for building a South Indian restaurant, considering factors such as location, design, menu, staffing, and regulatory compliance. Therefore, the project's feasibility is questionable."
+    },
+    "project_name": "Hospital"
+  },
+  "8c34b6b0-a6b6-42fb-bf95-b0e2b29429a4": {
+    "session_id": "8c34b6b0-a6b6-42fb-bf95-b0e2b29429a4",
+    "user_id": "default_user",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-01-29T18:29:51.395634",
+    "updated_at": "2026-01-29T18:29:53.294834"
+  },
+  "6616a668-cbde-4512-931c-4be5ee401af6": {
+    "session_id": "6616a668-cbde-4512-931c-4be5ee401af6",
+    "user_id": "default_user",
+    "status": "developing",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      },
+      {
+        "role": "user",
+        "content": "I want to build a restaurant"
+      },
+      {
+        "role": "assistant",
+        "content": "What type of restaurant are you planning to build?"
+      },
+      {
+        "role": "user",
+        "content": "South Indian Food"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the estimated budget for this South Indian restaurant project?"
+      },
+      {
+        "role": "user",
+        "content": "30Lakhs"
+      }
+    ],
+    "raw_problem": [
+      {
+        "role": "assistant",
+        "content": "What is the primary objective of the project we are about to discuss?"
+      },
+      {
+        "role": "user",
+        "content": "I want to build a restaurant"
+      },
+      {
+        "role": "assistant",
+        "content": "What type of restaurant are you planning to build?"
+      },
+      {
+        "role": "user",
+        "content": "South Indian Food"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the estimated budget for this South Indian restaurant project?"
+      },
+      {
+        "role": "user",
+        "content": "30Lakhs"
+      }
+    ],
+    "primary_constraints": [
+      "Estimated budget of 30Lakhs",
+      "Type of restaurant limited to South Indian Food"
+    ],
+    "refined_problem": {
+      "problem_summary": "The stakeholder wants to build a South Indian Food restaurant with an estimated budget of 30Lakhs.",
+      "in_scope": [
+        "Building a South Indian Food restaurant",
+        "Estimated budget of 30Lakhs"
+      ],
+      "out_of_scope": [
+        "Other types of restaurants",
+        "Budgets outside of 30Lakhs"
+      ],
+      "assumptions": [
+        "The stakeholder has a clear understanding of what a South Indian Food restaurant entails",
+        "The estimated budget of 30Lakhs is sufficient for the project"
+      ],
+      "constraints": [
+        "Estimated budget of 30Lakhs",
+        "Type of restaurant limited to South Indian Food"
+      ],
+      "open_points": [
+        "Detailed menu and services offered by the restaurant",
+        "Target audience and location of the restaurant",
+        "Specific amenities and features required in the restaurant",
+        "Timeline for the project completion"
+      ],
+      "feasible": true,
+      "feasibility_reason": "No concrete constraint updates were found in the validator conversation."
+    },
+    "validator_chat": [
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      }
+    ],
+    "developer_output": "# Functional Requirements\n* The system should be able to manage a South Indian Food restaurant\n* The system should have a budget constraint of 30Lakhs\n* The system should be able to handle restaurant operations such as order management, inventory management, and customer management\n* The system should have a user interface for customers to place orders\n* The system should have an administrative interface for restaurant staff to manage orders, inventory, and customer information\n* The system should be able to generate reports on sales, inventory, and customer data\n\n# Non-Functional Requirements\n* The system should be scalable to handle a high volume of customers and orders\n* The system should be secure to protect customer data and prevent unauthorized access\n* The system should be reliable and available 24/7 to handle customer orders and restaurant operations\n* The system should be maintainable to allow for easy updates and bug fixes\n* The system should be user-friendly and easy to navigate for both customers and restaurant staff\n* The system should be able to handle a budget of 30Lakhs, which may impact the technology and infrastructure used to develop the system\n* The system should comply with any relevant laws and regulations related to food service and customer data protection",
+    "created_at": "2026-01-29T18:29:51.399886",
+    "updated_at": "2026-01-29T18:31:41.093354",
+    "validated_problem": {
+      "feasible": false,
+      "key_risks": [
+        "Insufficient budget for comprehensive restaurant setup",
+        "Technical complexity of kitchen and dining area design",
+        "Location constraints potentially impacting customer accessibility",
+        "Scope of project may exceed allocated budget",
+        "Regulatory feasibility concerns, such as food safety and licensing"
+      ],
+      "final_notes": "The estimated budget of 30Lakhs may not be sufficient to cover all aspects of building a South Indian Food restaurant, including kitchen equipment, dining area design, staffing, and regulatory compliance. Further evaluation of costs and potential risks is necessary to determine the project's viability."
     }
   }
 }

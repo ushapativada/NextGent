@@ -46,6 +46,7 @@ def create_session(user_id="default_user"):
     _SESSIONS[session_id] = {
         "session_id": session_id,
         "user_id": user_id,
+        "project_name": f"Project {session_id[:8]}",
         "status": "questioning",
         "stakeholder_chat": [],
         "raw_problem": [],
