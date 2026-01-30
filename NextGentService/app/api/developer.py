@@ -36,9 +36,7 @@ def get_specs(session_id: str):
         raise HTTPException(404, "Invalid session")
     
     specs = session.get("developer_output")
-    if not specs:
-        raise HTTPException(404, "No specs found")
-        
+    # Return null instead of 404/400 to avoid console errors
     return {"specs": specs}
 
 @router.get("/download")

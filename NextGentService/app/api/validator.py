@@ -25,11 +25,14 @@ def start_validation(session_id: str):
         "You may ask questions, suggest corrections, or add constraints."
     )
 
-    append_validator_message(session_id, "assistant", intro_message)
+    # Only append intro if chat is empty to avoid duplicates on resume
+    if not session.get("validator_chat"):
+        append_validator_message(session_id, "assistant", intro_message)
 
     return {
         "message": intro_message,
         "refined_problem": session["refined_problem"],
+        "chat_history": session.get("validator_chat", [])
     }
 
 
@@ -62,29 +65,40 @@ def finalize_validation_phase(session_id: str):
     if not session:
         raise HTTPException(404, "Invalid session")
 
-    require_status(session, ["validating", "developing"])
+    # Allow re-finalization even if already finalized
+    require_status(session, ["validating", "developing", "finalized"])
 
-    updated_refined_problem, updated_constraints = apply_validation_feedback(
-        refined_problem=session["refined_problem"],
-        validator_chat=session["validator_chat"],
-        primary_constraints=session["primary_constraints"],
-    )
+    try:
+        updated_refined_problem, updated_constraints = apply_validation_feedback(
+            refined_problem=session["refined_problem"],
+            validator_chat=session["validator_chat"],
+            primary_constraints=session["primary_constraints"],
+        )
 
-    updated_constraints = updated_refined_problem.get(
-        "constraints", session["primary_constraints"]
-    )
+        updated_constraints = updated_refined_problem.get(
+            "constraints", session["primary_constraints"]
+        )
 
-    print("SESSION CONSTRAINTS AFTER FINALIZE:", session["primary_constraints"])
+        print("SESSION CONSTRAINTS AFTER FINALIZE:", session["primary_constraints"])
 
-    validation_result = ai_finalize(updated_refined_problem)
+        validation_result = ai_finalize(updated_refined_problem)
 
-    update_session(
-        session_id,
-        refined_problem=updated_refined_problem,
-        primary_constraints=updated_constraints,  # ✅ USER TRUTH
-        validated_problem=validation_result,  # ✅ AI FEASIBILITY OPINION
-        status="finalized",
-    )
+        update_session(
+            session_id,
+            refined_problem=updated_refined_problem,
+            primary_constraints=updated_constraints,  # ✅ USER TRUTH
+            validated_problem=validation_result,  # ✅ AI FEASIBILITY OPINION
+            status="finalized",
+        )
+
+        return {
+            "status": "finalized",
+            "validation_result": validation_result,
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(500, f"Finalization failed: {str(e)}")
 
     return {
         "status": "finalized",

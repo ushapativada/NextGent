@@ -1,11 +1,14 @@
 import { useEffect, useState, useRef } from "react";
-import { Send, Cpu, Sparkles, StopCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Send, Cpu, Sparkles, StopCircle, ChevronRight, Mic } from "lucide-react";
+import { motion } from "framer-motion";
 import ChatMessage from "../UI/ChatMessage";
 import LineReveal from "../UI/LineReveal";
 
 const API = "http://localhost:8000/stakeholder";
 
 export default function UserDashboard() {
+    const navigate = useNavigate();
     const [sessionId, setSessionId] = useState(null);
     const [chat, setChat] = useState([]);
     const [input, setInput] = useState("");
@@ -90,6 +93,41 @@ export default function UserDashboard() {
         }
     };
 
+    // STT Logic
+    const [isRecording, setIsRecording] = useState(false);
+    const recognitionRef = useRef(null);
+
+    const toggleRecording = () => {
+        if (isRecording) {
+            recognitionRef.current?.stop();
+            setIsRecording(false);
+            return;
+        }
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Browser does not support Speech Recognition");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+
+        recognition.onstart = () => setIsRecording(true);
+        recognition.onend = () => setIsRecording(false);
+        recognition.onresult = (event) => {
+            const lastResult = event.results[event.results.length - 1];
+            if (lastResult.isFinal) {
+                setInput(prev => prev + (prev ? " " : "") + lastResult[0].transcript);
+            }
+        };
+
+        recognitionRef.current = recognition;
+        recognition.start();
+    };
+
     return (
         <div className="flex flex-col h-[calc(100vh-140px)] max-w-4xl mx-auto relative">
             {/* Header / Context */}
@@ -157,31 +195,78 @@ export default function UserDashboard() {
                 </div>
 
                 {/* INPUT AREA */}
+                {/* INPUT AREA / NAVIGATION */}
                 <div className="absolute bottom-0 left-0 w-full p-4 bg-[#0A0A0A]/90 backdrop-blur-md border-t border-white/5">
-                    <div className="relative flex items-center gap-2 p-1.5 bg-zinc-900 border border-zinc-800 rounded-xl focus-within:border-blue-500/50 focus-within:ring-1 focus-within:ring-blue-500/50 transition-all">
-                        <input
-                            className="flex-1 bg-transparent px-4 py-3 outline-none font-slate text-sm text-white placeholder-zinc-500"
-                            placeholder="Type your requirements or answer the question..."
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === "Enter" && sendAnswer()}
-                            disabled={loading}
-                            autoFocus
-                        />
-                        <button
-                            onClick={sendAnswer}
-                            disabled={!input.trim() || loading}
-                            className={`p-3 rounded-lg transition-all ${input.trim() && !loading
-                                ? "bg-white text-black hover:bg-zinc-200 shadow-lg shadow-white/10"
-                                : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
-                                }`}
+                    {chat.some(m => m.text && m.text.includes("Questioning complete")) ? (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex justify-center"
                         >
-                            <Send size={18} />
-                        </button>
-                    </div>
-                    <p className="text-[10px] text-zinc-600 font-slate text-center mt-3">
-                        AI can make mistakes. Please review critical requirements.
-                    </p>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                animate={{ boxShadow: ["0 0 0 0 rgba(59, 130, 246, 0)", "0 0 0 10px rgba(59, 130, 246, 0.2)", "0 0 0 20px rgba(59, 130, 246, 0)"] }}
+                                transition={{ boxShadow: { duration: 2, repeat: Infinity } }}
+                                onClick={() => navigate("/validator")}
+                                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-slate-bold text-lg shadow-2xl flex items-center gap-3"
+                            >
+                                <Sparkles className="fill-white" />
+                                Proceed to Validation
+                                <ChevronRight />
+                            </motion.button>
+                        </motion.div>
+                    ) : (
+                        <>
+                            <div className="relative flex items-center gap-2 p-1.5 bg-zinc-900 border border-zinc-800 rounded-xl focus-within:border-blue-500/50 focus-within:ring-1 focus-within:ring-blue-500/50 transition-all">
+                                {isRecording && (
+                                    <div className="absolute top-[-20px] left-4 flex gap-1 h-3 items-end">
+                                        <span className="w-1 bg-red-500 animate-[bounce_1s_infinite] h-2 rounded-full" />
+                                        <span className="w-1 bg-red-500 animate-[bounce_1.2s_infinite] h-3 rounded-full" />
+                                        <span className="w-1 bg-red-500 animate-[bounce_0.8s_infinite] h-2 rounded-full" />
+                                        <span className="text-xs text-red-500 ml-1 font-slate-bold">Recording...</span>
+                                    </div>
+                                )}
+                                <button
+                                    onClick={toggleRecording}
+                                    className={`p-3 rounded-lg transition-all ${isRecording
+                                        ? "bg-red-500/20 text-red-500 animate-pulse"
+                                        : "text-zinc-500 hover:text-white hover:bg-zinc-800"
+                                        }`}
+                                >
+                                    {isRecording ? <StopCircle size={18} /> : <Mic size={18} />}
+                                </button>
+
+                                <textarea
+                                    className="flex-1 bg-transparent px-4 py-3 outline-none font-slate text-sm text-white placeholder-zinc-500 resize-none h-12 min-h-[48px] max-h-32 scrollbar-thin scrollbar-thumb-zinc-700"
+                                    placeholder="Type or speak..."
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" && !e.shiftKey) {
+                                            e.preventDefault();
+                                            sendAnswer();
+                                        }
+                                    }}
+                                    disabled={loading}
+                                    autoFocus
+                                />
+                                <button
+                                    onClick={sendAnswer}
+                                    disabled={!input.trim() || loading}
+                                    className={`p-3 rounded-lg transition-all ${input.trim() && !loading
+                                        ? "bg-white text-black hover:bg-zinc-200 shadow-lg shadow-white/10"
+                                        : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+                                        }`}
+                                >
+                                    <Send size={18} />
+                                </button>
+                            </div>
+                            <p className="text-[10px] text-zinc-600 font-slate text-center mt-3">
+                                AI can make mistakes. Please review critical requirements.
+                            </p>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

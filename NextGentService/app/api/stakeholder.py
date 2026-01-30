@@ -42,7 +42,13 @@ def answer_question(session_id: str, answer: str):
     if not session:
         raise HTTPException(404, "Invalid session")
 
-    require_status(session, "questioning")
+    # If already refined, just return the completion message again so UI recovers
+    if session["status"] in ["refining", "validating", "finalized"]:
+         return {
+            "message": "Questioning complete. Problem refined and sent for validation."
+        }
+
+    require_status(session, ["questioning", "in_progress"])
 
     # Store stakeholder answer
     append_stakeholder_message(session_id, "user", answer)
@@ -104,3 +110,11 @@ def rename_session(session_id: str, new_name: str):
     
     update_session(session_id, project_name=new_name)
     return {"message": "Project renamed successfully", "new_name": new_name}
+
+@router.delete("/{session_id}")
+def delete_session_endpoint(session_id: str):
+    from app.state.session_store import delete_session
+    success = delete_session(session_id)
+    if not success:
+        raise HTTPException(404, "Session not found")
+    return {"message": "Session deleted successfully"}

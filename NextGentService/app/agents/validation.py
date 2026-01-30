@@ -1,32 +1,73 @@
 from app.config.llm import llm
 from app.utils.json_safe import extract_json
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from litellm.exceptions import RateLimitError
 
+@retry(
+    retry=retry_if_exception_type(RateLimitError),
+    wait=wait_exponential(multiplier=2, min=4, max=20),
+    stop=stop_after_attempt(5)
+)
+def call_llm_with_retry(messages):
+    return llm.call(messages=messages)
 
 def validation_agent_reply(refined_problem: dict, validator_chat: list[dict]) -> str:
     """
     AI validation response based on refined problem + validator interaction.
     """
 
+    # --- CIRCUIT BREAKER: STOP REPETITIVE CONFIRMATION LOOPS ---
+    # If the user just said "Yes" to a confirmation question, force exit.
+    # This prevents the LLM from getting stuck in "Verification Loops".
+    if validator_chat and len(validator_chat) >= 2:
+        last_user_msg = validator_chat[-1]
+        last_bot_msg = validator_chat[-2]
+        
+        if last_user_msg["role"] == "user" and last_bot_msg["role"] == "assistant":
+            user_text = last_user_msg["content"].strip().lower().replace(".", "").replace("!", "")
+            bot_text = last_bot_msg["content"].strip().lower()
+            
+            # Common short agreements
+            agreements = ["yes", "yeah", "yep", "sure", "correct", "confirmed", "exactly", "right", "ok", "okay"]
+            
+            # If user message is just an agreement (or very short starting with agreement)
+            is_agreement = user_text in agreements or (len(user_text) < 50 and any(user_text.startswith(w) for w in agreements))
+            
+            # If bot was asking for confirmation/summary
+            is_question = "?" in bot_text or "confirm" in bot_text or "right" in bot_text or "so," in bot_text
+            
+            if is_agreement and is_question:
+                return "Great! Please click 'Finalize Specs' to proceed."
+    # -----------------------------------------------------------
+
     prompt = f"""
-You are a Senior Technical Validator.
+You are a helpful and clear Requirements Consultant.
+You are talking to a non-technical stakeholder who wants to build software.
 
-Your task:
-- Validate feasibility and practicality
-- Identify risks and limitations
-- Suggest improvements
-- Be precise and technical
-- Do NOT finalize anything
+Your Goal:
+- Verify that the requirements are clear and complete.
+- Ensure the user is happy with what we will build.
 
-Refined Problem:
-{refined_problem}
+STRICT RULES:
+1. Ask ONLY ONE simple question at a time. Do not ask multiple questions.
+2. Use plain English. NO technical jargon (e.g., avoid "RTO/RPO", "RBAC", "latency", "schema").
+3. Keep your response SHORT (max 2-3 sentences).
+4. Do NOT lecture the user on best practices. Just ask your question gently.
 
-Validator Conversation So Far:
+5. CRITICAL: If the user explicitly agrees ("Yes", "Confirm") to your previous summary or questions, DO NOT ASK AGAIN.
+6. If the user says "Yes" to your confirmation, or if they seem satisfied, or if conversation is getting repetitive:
+   - Reply ONLY: "Great! Please click 'Finalize Specs' to proceed."
+
+Context:
+Refined Problem: {refined_problem}
+
+Conversation History:
 {validator_chat}
 
-Respond to the validator's latest input.
+Respond to the user's latest input naturally and simply. If they just said "Yes", end the conversation.
 """
 
-    response = llm.call(messages=[{"role": "user", "content": prompt}])
+    response = call_llm_with_retry(messages=[{"role": "user", "content": prompt}])
 
     return response.strip()
 
@@ -65,7 +106,7 @@ def finalize_validation(refined_problem: dict) -> dict:
         }}
     """
 
-    response = llm.call(messages=[{"role": "user", "content": prompt}])
+    response = call_llm_with_retry(messages=[{"role": "user", "content": prompt}])
     return extract_json(response)
 
 
@@ -111,6 +152,6 @@ def detect_required_changes(
         }}
         """
 
-    response_text = llm.call(messages=[{"role": "user", "content": prompt}])
+    response_text = call_llm_with_retry(messages=[{"role": "user", "content": prompt}])
 
     return extract_json(response_text)

@@ -16,6 +16,7 @@ def extract_json(text: str) -> dict:
         pass
 
     # Try to extract JSON block
+    # Try to extract JSON block
     match = re.search(r"\{.*\}", text, re.DOTALL)
     if match:
         try:
@@ -23,6 +24,5 @@ def extract_json(text: str) -> dict:
         except json.JSONDecodeError:
             pass
 
-        raise ValueError("No valid JSON found in LLM output")
-
-    return json.loads(match.group())
+    # If we get here, no JSON was found or parsed
+    raise ValueError(f"No valid JSON found in LLM output: {text[:100]}...")

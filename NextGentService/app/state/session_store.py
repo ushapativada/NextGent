@@ -103,3 +103,10 @@ def append_validator_message(session_id: str, role: str, content: str):
     session["updated_at"] = datetime.utcnow()
     _save_to_disk()
     return session
+
+def delete_session(session_id: str):
+    if session_id in _SESSIONS:
+        del _SESSIONS[session_id]
+        _save_to_disk()
+        return True
+    return False

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FileCheck, AlertCircle, RefreshCw, Send, CheckCircle, ShieldAlert, ArrowLeft, X } from "lucide-react";
+import { FileCheck, AlertCircle, RefreshCw, Send, CheckCircle, ShieldAlert, ArrowLeft, X, Mic, StopCircle } from "lucide-react";
 import ChatMessage from "../UI/ChatMessage";
 import ProblemOverview from "../UI/ProblemRefined";
 
@@ -25,7 +25,7 @@ export default function UserValidation() {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [chat]);
 
-    // 1️⃣ START VALIDATION (auto)
+    // 1️⃣ START OR RESUME VALIDATION
     useEffect(() => {
         if (!sessionId) {
             setError("No active session found. Please start a new session from the dashboard.");
@@ -43,7 +43,18 @@ export default function UserValidation() {
 
                 const data = await res.json();
                 setInfo(data.refined_problem);
-                setChat([{ id: Date.now(), role: "assistant", text: data.message }]);
+
+                // Load existing history OR set initial message
+                if (data.chat_history && data.chat_history.length > 0) {
+                    setChat(data.chat_history.map((msg, i) => ({
+                        id: `hist-${i}`,
+                        role: msg.role,
+                        text: msg.content
+                    })));
+                } else {
+                    setChat([{ id: Date.now(), role: "assistant", text: data.message }]);
+                }
+
             } catch (err) {
                 console.error(err);
                 setError(err.message);
@@ -102,6 +113,41 @@ export default function UserValidation() {
         } finally {
             setLoading(false);
         }
+    };
+
+    // STT Logic
+    const [isRecording, setIsRecording] = useState(false);
+    const recognitionRef = useRef(null);
+
+    const toggleRecording = () => {
+        if (isRecording) {
+            recognitionRef.current?.stop();
+            setIsRecording(false);
+            return;
+        }
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Browser does not support Speech Recognition");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+
+        recognition.onstart = () => setIsRecording(true);
+        recognition.onend = () => setIsRecording(false);
+        recognition.onresult = (event) => {
+            const lastResult = event.results[event.results.length - 1];
+            if (lastResult.isFinal) {
+                setInput(prev => prev + (prev ? " " : "") + lastResult[0].transcript);
+            }
+        };
+
+        recognitionRef.current = recognition;
+        recognition.start();
     };
 
     if (error) {
@@ -191,12 +237,35 @@ export default function UserValidation() {
                 {/* Input Area */}
                 <div className="p-4 bg-[#0A0A0A]/90 backdrop-blur-md border-t border-white/5">
                     <div className="relative flex items-center gap-2 p-1.5 bg-zinc-900 border border-zinc-800 rounded-xl focus-within:border-blue-500/50 focus-within:ring-1 focus-within:ring-blue-500/50 transition-all">
-                        <input
-                            className="flex-1 bg-transparent px-4 py-3 outline-none font-slate text-sm text-white placeholder-zinc-500"
+                        {isRecording && (
+                            <div className="absolute top-[-20px] left-4 flex gap-1 h-3 items-end">
+                                <span className="w-1 bg-red-500 animate-[bounce_1s_infinite] h-2 rounded-full" />
+                                <span className="w-1 bg-red-500 animate-[bounce_1.2s_infinite] h-3 rounded-full" />
+                                <span className="w-1 bg-red-500 animate-[bounce_0.8s_infinite] h-2 rounded-full" />
+                                <span className="text-xs text-red-500 ml-1 font-slate-bold">Recording...</span>
+                            </div>
+                        )}
+                        <button
+                            onClick={toggleRecording}
+                            className={`p-3 rounded-lg transition-all ${isRecording
+                                ? "bg-red-500/20 text-red-500 animate-pulse"
+                                : "text-zinc-500 hover:text-white hover:bg-zinc-800"
+                                }`}
+                        >
+                            {isRecording ? <StopCircle size={18} /> : <Mic size={18} />}
+                        </button>
+
+                        <textarea
+                            className="flex-1 bg-transparent px-4 py-3 outline-none font-slate text-sm text-white placeholder-zinc-500 resize-none h-12 min-h-[48px] max-h-32 scrollbar-thin scrollbar-thumb-zinc-700"
                             placeholder="Suggest a correction or ask for clarification..."
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && !e.shiftKey) {
+                                    e.preventDefault();
+                                    sendMessage();
+                                }
+                            }}
                             disabled={loading}
                         />
                         <button
@@ -277,10 +346,10 @@ export default function UserValidation() {
                                 Continue Editing
                             </button>
                             <button
-                                onClick={() => navigate("/output")}
-                                className="px-5 py-2.5 bg-white text-black rounded-xl text-sm font-slate-bold hover:bg-zinc-200 transition-colors"
+                                onClick={() => navigate("/developer")}
+                                className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-xl text-sm font-slate-bold transition-all shadow-lg hover:shadow-blue-500/20"
                             >
-                                Proceed to Output
+                                Proceed to Developer
                             </button>
                         </div>
                     </div>

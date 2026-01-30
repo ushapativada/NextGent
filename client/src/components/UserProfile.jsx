@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Clock, MessageSquare, CheckCircle, Construction, ChevronRight, User, SortDesc, Filter, Plus, Code2, Edit2, Check, X as CloseIcon } from "lucide-react";
+import { Clock, MessageSquare, CheckCircle, Construction, ChevronRight, User, SortDesc, Filter, Plus, Code2, Edit2, Check, X as CloseIcon, Trash2 } from "lucide-react";
 
 const API = "http://localhost:8000/stakeholder";
 
@@ -90,7 +90,32 @@ export default function UserProfile() {
         }
     };
 
-    // Sorting Logic
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [sessionToDelete, setSessionToDelete] = useState(null);
+
+    const handleDelete = (e, session) => {
+        e.stopPropagation();
+        setSessionToDelete(session);
+        setShowDeleteModal(true);
+    };
+
+    const confirmDelete = async () => {
+        if (!sessionToDelete) return;
+
+        try {
+            const res = await fetch(`${API}/${sessionToDelete.session_id}`, {
+                method: "DELETE"
+            });
+            if (res.ok) {
+                fetchSessions();
+                setShowDeleteModal(false);
+                setSessionToDelete(null);
+            }
+        } catch (err) {
+            console.error("Failed to delete session", err);
+        }
+    };
+
     const sortedSessions = [...sessions].sort((a, b) => {
         if (sortOrder === "newest") {
             return new Date(b.updated_at) - new Date(a.updated_at);
@@ -243,13 +268,22 @@ export default function UserProfile() {
                                             <h3 className="text-lg font-slate-bold text-white mb-2 group-hover:text-blue-400 transition-colors truncate flex-1">
                                                 {session.project_name || `Project ${session.session_id.slice(0, 8)}`}
                                             </h3>
-                                            <button
-                                                onClick={e => startEditing(e, session)}
-                                                className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-blue-400 transition-all mb-2"
-                                                title="Rename project"
-                                            >
-                                                <Edit2 size={14} />
-                                            </button>
+                                            <div className="flex gap-1 opactiy-0 group-hover:opacity-100 transition-opacity">
+                                                <button
+                                                    onClick={e => startEditing(e, session)}
+                                                    className="p-1.5 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-blue-400 transition-all opacity-0 group-hover:opacity-100"
+                                                    title="Rename project"
+                                                >
+                                                    <Edit2 size={14} />
+                                                </button>
+                                                <button
+                                                    onClick={e => handleDelete(e, session)}
+                                                    className="p-1.5 hover:bg-red-500/10 rounded-lg text-zinc-500 hover:text-red-400 transition-all opacity-0 group-hover:opacity-100"
+                                                    title="Delete project"
+                                                >
+                                                    <Trash2 size={14} />
+                                                </button>
+                                            </div>
                                         </div>
                                         <p className="text-zinc-500 text-xs font-slate leading-relaxed line-clamp-2">
                                             Last updated on {formatDate(session.updated_at)} at {new Date(session.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -269,6 +303,36 @@ export default function UserProfile() {
                     ))}
                 </div>
             </div>
+
+            {/* DELETE MODAL */}
+            {showDeleteModal && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-[#0A0A0A] border border-zinc-800 p-8 rounded-2xl w-full max-w-sm shadow-2xl relative" onClick={e => e.stopPropagation()}>
+                        <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mb-4">
+                            <Trash2 size={24} className="text-red-500" />
+                        </div>
+                        <h2 className="text-xl font-slate-bold text-white mb-2">Delete Project?</h2>
+                        <p className="text-zinc-500 text-sm mb-6 leading-relaxed">
+                            Are you sure you want to delete <span className="text-white font-medium">{sessionToDelete?.project_name}</span>? This action cannot be undone.
+                        </p>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setShowDeleteModal(false)}
+                                className="flex-1 px-4 py-3 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 rounded-xl text-sm font-slate-medium transition-colors"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-500 text-white rounded-xl text-sm font-slate-bold transition-colors shadow-lg shadow-red-500/20"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
