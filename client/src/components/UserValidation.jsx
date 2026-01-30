@@ -320,7 +320,16 @@ export default function UserValidation() {
                                     {finalResult?.validation_result?.key_risks?.length ? (
                                         <ul className="list-disc list-inside text-sm text-zinc-300 space-y-2">
                                             {finalResult.validation_result.key_risks.map((risk, i) => (
-                                                <li key={i}>{risk}</li>
+                                                <li key={i}>
+                                                    {typeof risk === 'object' ? (
+                                                        <span>
+                                                            <strong className="text-white">{risk.risk || "Risk"}</strong>
+                                                            {risk.mitigation && <span className="text-zinc-500 block text-xs mt-1">Mitigation: {risk.mitigation}</span>}
+                                                        </span>
+                                                    ) : (
+                                                        risk
+                                                    )}
+                                                </li>
                                             ))}
                                         </ul>
                                     ) : (

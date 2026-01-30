@@ -73,13 +73,9 @@ Respond to the user's latest input naturally and simply. If they just said "Yes"
 
 
 def finalize_validation(refined_problem: dict) -> dict:
-    if refined_problem.get("feasible") is False:
-        return {
-            "feasible": False,
-            "key_risks": [],
-            "final_notes": refined_problem.get("infeasibility_reason"),
-        }
-
+    # Always re-evaluate feasibility, do not trust previous "feasible: False" flags.
+    # The validation phase is specifically for fixing feasibility issues.
+    
     prompt = f"""
         You are a Senior System Architect.
 
@@ -90,13 +86,18 @@ def finalize_validation(refined_problem: dict) -> dict:
         - scope vs budget
         - regulatory feasibility
 
-        Refined Problem:
-        {refined_problem}
+        CRITICAL INSTRUCTION:
+        - Default to "feasible": true unless there is a MATHEMATICALLY IMPOSSIBLE constraint (e.g. building a Mars rover for $50).
+        - If the budget is tight but possible, mark it as FEASIBLE and list usage of existing APIs/tools as a risk mitigation.
+        - Do not be overly pessimistic. If it can be built, it is feasible.
 
         RULES
         - Do NOT modify constraints.
         - Do NOT suggest updates.
         - Only judge feasibility.
+
+        Refined Problem:
+        {refined_problem}
 
         Respond ONLY JSON:
         {{

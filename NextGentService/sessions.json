@@ -717,5 +717,329 @@
       ],
       "final_notes": "While the problem statement is well-defined, the technical complexity and regulatory feasibility in India may pose significant challenges. Additionally, the budget may not be sufficient to cover the costs of development. Further analysis and risk assessment are required to determine the feasibility of this project."
     }
+  },
+  "dc22d0f4-95c6-4a5e-9a46-7c5dba99c2a0": {
+    "session_id": "dc22d0f4-95c6-4a5e-9a46-7c5dba99c2a0",
+    "user_id": "default_user",
+    "project_name": "Boutique",
+    "status": "finalized",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I want to build a boutique"
+      },
+      {
+        "role": "assistant",
+        "content": "What type of products or services will your boutique offer?"
+      },
+      {
+        "role": "user",
+        "content": "The boutique will offer curated women\u2019s fashion and lifestyle products, with a focus on quality over volume. This includes everyday and occasion wear (ethnic and fusion), limited handcrafted pieces, and select accessories such as jewelry, bags, and scarves. The emphasis is on tasteful designs, affordable-to-mid-range pricing, and collections that feel personal rather than mass-produced. The goal is to offer customers well-edited choices instead of overwhelming racks.\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Who is your target customer for this boutique?"
+      },
+      {
+        "role": "user",
+        "content": "The target customer is urban women aged roughly 20\u201340, including students, young professionals, and working women who want stylish but practical clothing without paying luxury-brand prices. They value **good design, comfort, and uniqueness**, and prefer curated selections over fast-fashion clutter. This boutique is for customers who want to look put-together and distinctive, not trend-chasing or logo-driven.\n"
+      }
+    ],
+    "raw_problem": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I want to build a boutique"
+      },
+      {
+        "role": "assistant",
+        "content": "What type of products or services will your boutique offer?"
+      },
+      {
+        "role": "user",
+        "content": "The boutique will offer curated women\u2019s fashion and lifestyle products, with a focus on quality over volume. This includes everyday and occasion wear (ethnic and fusion), limited handcrafted pieces, and select accessories such as jewelry, bags, and scarves. The emphasis is on tasteful designs, affordable-to-mid-range pricing, and collections that feel personal rather than mass-produced. The goal is to offer customers well-edited choices instead of overwhelming racks.\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Who is your target customer for this boutique?"
+      },
+      {
+        "role": "user",
+        "content": "The target customer is urban women aged roughly 20\u201340, including students, young professionals, and working women who want stylish but practical clothing without paying luxury-brand prices. They value **good design, comfort, and uniqueness**, and prefer curated selections over fast-fashion clutter. This boutique is for customers who want to look put-together and distinctive, not trend-chasing or logo-driven.\n"
+      }
+    ],
+    "primary_constraints": {
+      "budget": "30L",
+      "location": "urban city",
+      "business_type": "Boutique Women's Fashion and Lifestyle"
+    },
+    "refined_problem": {
+      "problem_summary": "Develop a boutique offering curated women\u2019s fashion and lifestyle products with a focus on quality over volume, targeting urban women aged 20-40 who value good design, comfort, and uniqueness.",
+      "in_scope": [
+        "Curated women\u2019s fashion and lifestyle products",
+        "Quality over volume focus",
+        "Urban women aged 20-40 as target customers",
+        "Good design, comfort, and uniqueness as key values",
+        "Affordable-to-mid-range pricing",
+        "Well-edited choices instead of overwhelming racks",
+        "Everyday and occasion wear (ethnic and fusion)",
+        "Limited handcrafted pieces",
+        "Select accessories such as jewelry, bags, and scarves"
+      ],
+      "out_of_scope": [
+        "Luxury-brand prices",
+        "Trend-chasing or logo-driven fashion",
+        "Mass-produced collections",
+        "Fast-fashion clutter"
+      ],
+      "assumptions": [
+        "The target customer segment is willing to pay for quality over volume",
+        "The boutique will be able to source products that meet the quality and uniqueness criteria"
+      ],
+      "constraints": {
+        "budget": "30L",
+        "location": "urban city",
+        "business_type": "Boutique Women's Fashion and Lifestyle"
+      },
+      "open_points": [
+        "How to effectively communicate the boutique\u2019s unique value proposition to the target customer",
+        "How to balance the need for quality and uniqueness with the need for affordability"
+      ],
+      "feasible": true,
+      "feasibility_reason": "User has provided updates to existing constraints",
+      "budget": "30L",
+      "location": "urban city",
+      "business_type": "Boutique Women's Fashion and Lifestyle"
+    },
+    "validator_chat": [
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "user",
+        "content": "I\u2019d like to correct one key constraint here: the **actual budget is \u20b930 lakhs**, not \u20b950 lakhs. The requirements and scope should be aligned to this realistic investment level. With a \u20b930 lakh budget, the boutique will still focus on curated women\u2019s fashion and lifestyle products, but with tighter inventory planning, limited initial SKUs, and a smaller retail footprint. Sourcing will prioritize select handcrafted and small-batch suppliers rather than carrying wide collections, and marketing will rely more on in-store experience, word-of-mouth, and digital presence than heavy branding spends. The core value proposition\u2014quality over volume, good design, comfort, and uniqueness at affordable-to-mid-range pricing\u2014remains unchanged, but execution will be intentionally lean and phased to stay financially sustainable within the \u20b930 lakh constraint."
+      },
+      {
+        "role": "assistant",
+        "content": "You've corrected the budget constraint to \u20b930 lakhs. Does this updated constraint change the target customer segment you're aiming for?"
+      },
+      {
+        "role": "user",
+        "content": "No, the updated budget constraint of **\u20b930 lakhs does not change the target customer segment**. The boutique is still aimed at urban women aged 20\u201340 who value good design, comfort, and uniqueness at affordable-to-mid-range prices. What the budget changes is **how** the offering is executed, not **who** it is for\u2014there will be a smaller store, tighter inventory, fewer collections, and a more curated launch. The customer remains the same; the scale and pace are simply more disciplined and realistic.\n"
+      },
+      {
+        "role": "assistant",
+        "content": "So the target customer segment remains urban women aged 20-40 who value good design, comfort, and uniqueness at affordable-to-mid-range prices. Is that correct?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, that\u2019s correct. The target customer segment remains **urban women aged 20\u201340** who value **good design, comfort, and uniqueness** at **affordable-to-mid-range prices**. The revised \u20b930 lakh budget affects scale and execution, not the customer profile or the core value proposition.\n"
+      },
+      {
+        "role": "assistant",
+        "content": "So the target customer segment remains urban women aged 20-40 who value good design, comfort, and uniqueness at affordable-to-mid-range prices. Are these women likely to shop online or prefer in-store experiences?"
+      },
+      {
+        "role": "user",
+        "content": "They are likely to prefer a **hybrid approach**, but with a **strong bias toward in-store experiences**, especially in the early stages. Urban women in the 20\u201340 age group do shop online, but for curated boutiques, they value seeing, touching, and trying products to assess quality, fit, and fabric\u2014things that differentiate the boutique from mass online platforms. Online presence will matter for discovery and repeat purchases, but the primary buying decision, at least initially, will be driven by the **in-store experience** rather than pure online shopping.\n"
+      },
+      {
+        "role": "assistant",
+        "content": "So they prefer a hybrid approach with a strong bias toward in-store experiences, especially in the early stages. Will they be able to purchase products online, or will that be a feature we'll add later?"
+      },
+      {
+        "role": "user",
+        "content": "Initially, the focus will be on **in-store purchasing**, with online sales added **at a later stage** once the boutique establishes its brand, customer trust, and operational stability. Given the \u20b930 lakh budget, prioritizing the physical experience makes more sense than spreading resources thin across full e-commerce from day one. To conclude, the plan is to start with a strong in-store model supported by a basic digital presence for visibility, and then gradually introduce online purchasing when it can be done without compromising quality or customer experience.\n"
+      },
+      {
+        "role": "assistant",
+        "content": "So the focus will be on in-store purchasing initially, with online sales added later. Will the boutique have a mobile app for customers to browse and purchase products in-store?"
+      },
+      {
+        "role": "user",
+        "content": "Yes"
+      },
+      {
+        "role": "assistant",
+        "content": "Great! Please click 'Finalize Specs' to proceed."
+      }
+    ],
+    "developer_output": "Thought: I now can give a great answer\n\nFinal Answer\n============\n\n# Functional Requirements\n------------------------\n\n### User Management\n\n* As a user, I want to be able to create an account with a unique username and password.\n* As a user, I want to be able to log in to my account using my username and password.\n* As a user, I want to be able to reset my password if I forget it.\n* As a user, I want to be able to view my account information, including my order history and wish list.\n\n### Product Management\n\n* As an administrator, I want to be able to add new products to the catalog.\n* As an administrator, I want to be able to edit existing products in the catalog.\n* As an administrator, I want to be able to delete products from the catalog.\n* As a user, I want to be able to view product details, including price, description, and images.\n\n### Order Management\n\n* As a user, I want to be able to place an order for products in my cart.\n* As a user, I want to be able to view my order history, including order status and tracking information.\n* As an administrator, I want to be able to view all orders, including order status and tracking information.\n\n### Payment Gateway\n\n* As a user, I want to be able to pay for my orders using a secure payment gateway.\n* As an administrator, I want to be able to configure the payment gateway settings.\n\n### Shipping and Logistics\n\n* As a user, I want to be able to view shipping options and costs for my order.\n* As an administrator, I want to be able to configure shipping options and costs.\n\n### Reporting and Analytics\n\n* As an administrator, I want to be able to view sales reports, including revenue and customer demographics.\n* As an administrator, I want to be able to view website analytics, including traffic and engagement metrics.\n\n# Non-Functional Requirements\n---------------------------\n\n### Performance\n\n* The system must be able to handle a minimum of 100 concurrent users.\n* The system must be able to process orders within 2 seconds.\n* The system must be able to display product information within 1 second.\n\n### Security\n\n* The system must use HTTPS encryption for all user interactions.\n* The system must use secure password hashing and salting for user passwords.\n* The system must use access controls to restrict user access to sensitive data.\n\n### Scalability\n\n* The system must be able to scale horizontally to handle increased traffic.\n* The system must be able to scale vertically to handle increased load.\n\n### Usability\n\n* The system must be accessible on a variety of devices, including desktops, laptops, tablets, and mobile phones.\n* The system must be easy to use, with clear and intuitive navigation and interfaces.\n* The system must be accessible to users with disabilities, including those with visual, auditory, motor, or cognitive disabilities.",
+    "created_at": "2026-01-30T16:21:52.801006",
+    "updated_at": "2026-01-30T16:33:46.413680",
+    "validated_problem": {
+      "feasible": true,
+      "key_risks": [
+        {
+          "risk": "Balancing quality and uniqueness with affordability",
+          "mitigation": "Usage of existing APIs/tools for inventory management and supply chain optimization"
+        },
+        {
+          "risk": "Effectively communicating the boutique's unique value proposition",
+          "mitigation": "Utilizing existing social media and marketing platforms for targeted advertising"
+        }
+      ],
+      "final_notes": "The budget of 30L is realistic for a boutique women's fashion and lifestyle business in an urban city. The technical complexity is moderate, but the use of existing APIs/tools can help mitigate risks. The location constraint is favorable, and the business type is well-defined. Overall, the project is feasible with careful planning and risk management."
+    }
+  },
+  "29303a34-07df-4f7b-a220-27e034e23523": {
+    "session_id": "29303a34-07df-4f7b-a220-27e034e23523",
+    "user_id": "default_user",
+    "project_name": "Project 29303a34",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What are the primary business objectives driving this project?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-01-30T16:34:16.073944",
+    "updated_at": "2026-01-30T16:34:16.604868"
+  },
+  "83987886-d344-40f9-8d0e-cb675adefcc0": {
+    "session_id": "83987886-d344-40f9-8d0e-cb675adefcc0",
+    "user_id": "default_user",
+    "project_name": "Chinese restaurant",
+    "status": "finalized",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What are the business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I want to start a fast food business"
+      },
+      {
+        "role": "assistant",
+        "content": "What specific segment of the fast food market do you plan to target?"
+      },
+      {
+        "role": "user",
+        "content": "Chinese"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the unique selling proposition for your Chinese fast food business?"
+      },
+      {
+        "role": "user",
+        "content": "The unique selling proposition is **freshly prepared, Indian-style Chinese fast food that\u2019s consistent, affordable, and hygienic**, without the greasy, unpredictable quality people usually tolerate at street stalls. The menu is tight and focused on bestsellers, cooked to order with standardized recipes so taste doesn\u2019t change day to day. Fast service and transparent pricing are core, not add-ons. In short, it delivers the comfort of street-style Chinese food with the reliability of a well-run kitchen.\n"
+      }
+    ],
+    "raw_problem": [
+      {
+        "role": "assistant",
+        "content": "What are the business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I want to start a fast food business"
+      },
+      {
+        "role": "assistant",
+        "content": "What specific segment of the fast food market do you plan to target?"
+      },
+      {
+        "role": "user",
+        "content": "Chinese"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the unique selling proposition for your Chinese fast food business?"
+      },
+      {
+        "role": "user",
+        "content": "The unique selling proposition is **freshly prepared, Indian-style Chinese fast food that\u2019s consistent, affordable, and hygienic**, without the greasy, unpredictable quality people usually tolerate at street stalls. The menu is tight and focused on bestsellers, cooked to order with standardized recipes so taste doesn\u2019t change day to day. Fast service and transparent pricing are core, not add-ons. In short, it delivers the comfort of street-style Chinese food with the reliability of a well-run kitchen.\n"
+      }
+    ],
+    "primary_constraints": [
+      "Limited budget for marketing and advertising",
+      "Need to maintain high levels of food safety and hygiene",
+      "Must comply with local health and safety regulations"
+    ],
+    "refined_problem": {
+      "problem_summary": "Develop a fast food business model for a Chinese restaurant that offers freshly prepared, Indian-style Chinese food with consistent, affordable, and hygienic quality, while providing fast service and transparent pricing.",
+      "in_scope": [
+        "Targeting a specific segment of the fast food market (Chinese)",
+        "Offering freshly prepared, Indian-style Chinese food",
+        "Providing consistent, affordable, and hygienic quality",
+        "Offering fast service",
+        "Providing transparent pricing",
+        "Cooking to order with standardized recipes",
+        "Tight and focused menu with bestsellers",
+        "Delivering the comfort of street-style Chinese food with the reliability of a well-run kitchen"
+      ],
+      "out_of_scope": [
+        "Other types of cuisine",
+        "Non-fast food business models",
+        "High-end or fine dining experiences",
+        "Delivery or take-out only services"
+      ],
+      "assumptions": [
+        "The target market for the Chinese restaurant is willing to pay a premium for high-quality, freshly prepared food",
+        "The restaurant will be able to maintain consistent quality and service standards",
+        "The menu will be appealing to a wide range of customers"
+      ],
+      "constraints": [
+        "Limited budget for marketing and advertising",
+        "Need to maintain high levels of food safety and hygiene",
+        "Must comply with local health and safety regulations"
+      ],
+      "open_points": [
+        "How to effectively market and promote the restaurant to attract customers",
+        "How to manage and maintain consistent quality and service standards",
+        "How to balance the need for high-quality ingredients with cost constraints"
+      ],
+      "feasible": true,
+      "feasibility_reason": "No constraint updates were provided by the user."
+    },
+    "validator_chat": [
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "user",
+        "content": "No, Proceed"
+      },
+      {
+        "role": "assistant",
+        "content": "You said \"No, Proceed\". Can you confirm that you'd like to proceed with developing the fast food business model for the Chinese restaurant?"
+      },
+      {
+        "role": "user",
+        "content": "Yes"
+      },
+      {
+        "role": "assistant",
+        "content": "Great! Please click 'Finalize Specs' to proceed."
+      }
+    ],
+    "developer_output": "# Functional Requirements\n\n## FR-1: User Registration and Login\n- The system shall allow users to register and create an account.\n- The system shall allow users to log in to their account using a unique username and password.\n- The system shall verify user credentials and authenticate users before granting access to the system.\n\n## FR-2: Food Safety and Hygiene Management\n- The system shall allow administrators to create, manage, and track food safety and hygiene protocols.\n- The system shall enable users to report any food safety and hygiene concerns or incidents.\n- The system shall notify administrators and relevant authorities in case of a reported incident.\n\n## FR-3: Compliance Management\n- The system shall allow administrators to create, manage, and track compliance with local health and safety regulations.\n- The system shall enable users to report any non-compliance or incidents.\n- The system shall notify administrators and relevant authorities in case of a reported incident.\n\n## FR-4: Reporting and Analytics\n- The system shall provide administrators with reporting and analytics tools to track food safety and hygiene metrics.\n- The system shall enable administrators to generate reports on compliance and incident tracking.\n\n## FR-5: User Management\n- The system shall allow administrators to create, manage, and track user accounts.\n- The system shall enable administrators to assign roles and permissions to users.\n\n## FR-6: System Maintenance\n- The system shall allow administrators to perform routine maintenance tasks, such as backups and updates.\n- The system shall enable administrators to monitor system performance and troubleshoot issues.\n\n# Non-Functional Requirements\n\n## NFR-1: Security\n- The system shall ensure the confidentiality, integrity, and availability of user data.\n- The system shall implement robust authentication and authorization mechanisms.\n- The system shall comply with relevant data protection regulations.\n\n## NFR-2: Performance\n- The system shall respond to user input within 2 seconds.\n- The system shall handle a minimum of 100 concurrent user sessions without degradation.\n- The system shall maintain a minimum uptime of 99.9%.\n\n## NFR-3: Usability\n- The system shall provide an intuitive and user-friendly interface for users.\n- The system shall support multiple languages and locales.\n- The system shall comply with relevant accessibility standards.\n\n## NFR-4: Scalability\n- The system shall be designed to scale horizontally to handle increased traffic.\n- The system shall be able to handle a minimum of 10,000 user registrations per day.\n- The system shall be able to handle a minimum of 100 concurrent user sessions.\n\n## NFR-5: Reliability\n- The system shall maintain a minimum uptime of 99.9%.\n- The system shall be designed to recover from hardware or software failures.\n- The system shall be able to handle a minimum of 100 concurrent user sessions without degradation.",
+    "created_at": "2026-01-30T16:34:16.075683",
+    "updated_at": "2026-01-30T16:35:41.110809",
+    "validated_problem": {
+      "feasible": true,
+      "key_risks": [
+        "Limited budget for marketing and advertising may impact the restaurant's ability to effectively reach and attract customers.",
+        "Need to maintain high levels of food safety and hygiene may require additional investments in training and equipment.",
+        "Must comply with local health and safety regulations, which may introduce additional costs and complexities."
+      ],
+      "final_notes": "The project is feasible, but careful management of the limited budget and adherence to health and safety regulations will be crucial to its success."
+    }
   }
 }

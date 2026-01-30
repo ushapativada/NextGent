@@ -2,15 +2,24 @@ export default function ProblemOverview({ data }) {
     if (!data) return null;
 
     const Section = ({ title, items }) => {
-        if (!items) return null;
+        if (!items || (Array.isArray(items) && items.length === 0)) return null;
 
-        const list = Array.isArray(items)
-            ? items
-            : typeof items === "object"
-                ? Object.entries(items).map(
-                    ([k, v]) => `${k}: ${v}`
-                )
-                : [];
+        let list = [];
+
+        if (Array.isArray(items)) {
+            list = items.map(item => {
+                if (typeof item === 'object' && item !== null) {
+                    // Handle object in array (e.g. Risk object)
+                    return item.risk || item.description || JSON.stringify(item);
+                }
+                return item;
+            });
+        } else if (typeof items === "object") {
+            list = Object.entries(items).map(([k, v]) => {
+                const val = typeof v === 'object' && v !== null ? JSON.stringify(v) : v;
+                return `${k}: ${val}`;
+            });
+        }
 
         return (
             <div className="space-y-2">
@@ -19,7 +28,7 @@ export default function ProblemOverview({ data }) {
                 </h3>
                 <ul className="list-disc font-slate list-inside text-sm text-gray-300 space-y-1">
                     {list.map((item, i) => (
-                        <li key={i}>{item}</li>
+                        <li key={i} className="break-words">{item}</li>
                     ))}
                 </ul>
             </div>
@@ -44,6 +53,7 @@ export default function ProblemOverview({ data }) {
             <Section title="Assumptions" items={data.assumptions} />
             <Section title="Constraints" items={data.constraints} />
             <Section title="Open Points" items={data.open_points} />
+            <Section title="Key Risks" items={data.key_risks} />
         </div>
     );
 }
