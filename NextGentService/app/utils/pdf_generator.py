@@ -21,9 +21,26 @@ class TechnicalSpecPDF(FPDF):
     def chapter_body(self, body):
         self.set_font('Arial', '', 11)
         # simplistic markdown cleanup
-        clean_body = body.replace('**', '').replace('##', '').replace('* ', '- ')
-        self.multi_cell(0, 5, clean_body)
-        self.ln()
+        lines = body.split('\n')
+        for line in lines:
+            import re
+            # Check for image markdown ![alt](path)
+            img_match = re.search(r'!\[([^\]]*)\]\((.*?)\)', line)
+            if img_match:
+                img_path = img_match.group(2)
+                try:
+                    # Give some margin before image
+                    self.ln(5)
+                    # Automatically scale width to roughly fit page minus margins
+                    self.image(img_path, w=170)
+                    self.ln(5)
+                except Exception as e:
+                    self.multi_cell(0, 5, f"[Image rendering failed: {img_path}]")
+                    print(f"PDF Image Error: {e}")
+            else:
+                clean_line = line.replace('**', '').replace('##', '').replace('* ', '- ')
+                if clean_line.strip() or self.get_y() > 30: # Avoid excessive newlines at top
+                    self.multi_cell(0, 5, clean_line)
 
 def generate_pdf(content: str, filename: str):
     pdf = TechnicalSpecPDF()

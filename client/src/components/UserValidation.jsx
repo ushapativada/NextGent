@@ -104,12 +104,16 @@ export default function UserValidation() {
                 { method: "POST" }
             );
             const data = await res.json();
+            
+            if (!res.ok) {
+                throw new Error(data.detail || "Failed to finalize specs due to server error");
+            }
 
             setFinalResult(data);
             setShowResult(true);
         } catch (err) {
             console.error(err);
-            // Show toast or error message
+            alert("Error: " + err.message); // Show error directly to the user
         } finally {
             setLoading(false);
         }

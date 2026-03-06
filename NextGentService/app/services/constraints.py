@@ -27,10 +27,18 @@ Respond ONLY in JSON:
     return extract_json(response)
 
 
-def merge_primary_constraints(primary: dict, corrections: dict) -> dict:
-    updated = primary.copy()
+def merge_primary_constraints(primary, corrections: dict) -> dict:
+    # If primary is a list, convert it to a dictionary mapping 
+    # to prevent TypeError when using .items() or .copy()
+    if isinstance(primary, list):
+        updated = {f"rule_{i}": val for i, val in enumerate(primary)}
+    elif isinstance(primary, dict):
+        updated = primary.copy()
+    else:
+        updated = {}
 
-    for k, v in corrections.items():
-        updated[k] = v  # ✅ ALWAYS overwrite
+    if isinstance(corrections, dict):
+        for k, v in corrections.items():
+            updated[k] = v  # ✅ ALWAYS overwrite
 
     return updated

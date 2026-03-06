@@ -4,7 +4,7 @@ import UserDashboardNavbar from "./components/UserDashboardNavbar";
 import UserDashboard from "./components/UserDashboard";
 import UserValidation from "./components/UserValidation";
 import UserDeveloper from "./components/UserDeveloper";
-
+import UserVisualization from "./components/UserVisualization";
 import UserOutput from "./components/UserOutput";
 import UserProfile from "./components/UserProfile";
 import LandingPage from "./pages/LandingPage";
@@ -22,6 +22,7 @@ export default function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/validator" element={<UserValidation />} />
           <Route path="/developer" element={<UserDeveloper />} />
+          <Route path="/visualization" element={<UserVisualization />} />
           <Route path="/output" element={<UserOutput />} />
         </Route>
       </Routes>

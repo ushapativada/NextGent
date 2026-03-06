@@ -1,129 +1,9 @@
 {
-  "8cdce3e2-f13e-4d56-8271-2dd391a2e59a": {
-    "session_id": "8cdce3e2-f13e-4d56-8271-2dd391a2e59a",
-    "user_id": "default_user",
-    "status": "finalized",
-    "stakeholder_chat": [
-      {
-        "role": "assistant",
-        "content": "What is the primary objective of this project?"
-      },
-      {
-        "role": "user",
-        "content": "I  want to build a restaurant"
-      },
-      {
-        "role": "assistant",
-        "content": "What type of restaurant are you planning to build?"
-      },
-      {
-        "role": "user",
-        "content": "South Indian"
-      },
-      {
-        "role": "assistant",
-        "content": "What is the estimated budget for this restaurant project?"
-      },
-      {
-        "role": "user",
-        "content": "12lakhs"
-      }
-    ],
-    "raw_problem": [
-      {
-        "role": "assistant",
-        "content": "What is the primary objective of this project?"
-      },
-      {
-        "role": "user",
-        "content": "I  want to build a restaurant"
-      },
-      {
-        "role": "assistant",
-        "content": "What type of restaurant are you planning to build?"
-      },
-      {
-        "role": "user",
-        "content": "South Indian"
-      },
-      {
-        "role": "assistant",
-        "content": "What is the estimated budget for this restaurant project?"
-      },
-      {
-        "role": "user",
-        "content": "12lakhs"
-      }
-    ],
-    "primary_constraints": [
-      "Estimated budget limited to 12 lakhs",
-      "Need to adhere to the budget while building the restaurant"
-    ],
-    "refined_problem": {
-      "problem_summary": "The stakeholder intends to build a South Indian restaurant with an estimated budget of 12 lakhs.",
-      "in_scope": [
-        "Building a South Indian restaurant",
-        "Estimated budget of 12 lakhs"
-      ],
-      "out_of_scope": [
-        "Other types of restaurants (e.g. North Indian, fine dining, etc.)"
-      ],
-      "assumptions": [
-        "The estimated budget of 12 lakhs will be sufficient to cover all necessary expenses",
-        "The stakeholder has a clear understanding of the requirements for a South Indian restaurant"
-      ],
-      "constraints": [
-        "Estimated budget limited to 12 lakhs",
-        "Need to adhere to the budget while building the restaurant"
-      ],
-      "open_points": [
-        "Specific location for the restaurant",
-        "Detailed design and layout of the restaurant",
-        "Menu and pricing strategy",
-        "Staffing and operational requirements",
-        "Marketing and promotional plans"
-      ],
-      "feasible": true,
-      "feasibility_reason": "No concrete constraint updates were found in the validator conversation."
-    },
-    "validator_chat": [
-      {
-        "role": "assistant",
-        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
-      },
-      {
-        "role": "assistant",
-        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
-      },
-      {
-        "role": "assistant",
-        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
-      },
-      {
-        "role": "assistant",
-        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
-      }
-    ],
-    "developer_output": "# Functional Requirements\n* The system should be able to manage restaurant operations within the estimated budget of 12 lakhs.\n* The system should provide a mechanism to track and control expenses to ensure adherence to the budget.\n* The system should have a feature to generate reports on expenses and budget utilization.\n* The system should be able to handle user authentication and authorization to ensure that only authorized personnel can access and manage the system.\n* The system should have a user-friendly interface to facilitate easy navigation and management of restaurant operations.\n\n# Non-Functional Requirements\n* The system should be scalable to accommodate increasing demand and growth of the restaurant.\n* The system should ensure data security and integrity to protect sensitive information related to the restaurant's operations and finances.\n* The system should be reliable and available at all times to ensure uninterrupted operations.\n* The system should be maintainable and easy to update to ensure that it remains relevant and effective in managing restaurant operations.\n* The system should be compatible with existing hardware and software infrastructure to minimize costs and ensure seamless integration.",
-    "created_at": "2026-01-29T18:14:57.378199",
-    "updated_at": "2026-01-29T18:39:22.159047",
-    "validated_problem": {
-      "feasible": false,
-      "key_risks": [
-        "Insufficient budget for comprehensive restaurant setup",
-        "Potential location constraints affecting restaurant viability",
-        "Technical complexity of designing and building a restaurant within the given budget",
-        "Regulatory feasibility concerns due to limited budget for compliance"
-      ],
-      "final_notes": "The estimated budget of 12 lakhs may not be sufficient to cover all necessary expenses for building a South Indian restaurant, considering factors such as location, design, menu, staffing, and regulatory compliance. Therefore, the project's feasibility is questionable."
-    },
-    "project_name": "Hospital"
-  },
   "de7a8739-653f-4be5-ad35-4bc85e4371f7": {
     "session_id": "de7a8739-653f-4be5-ad35-4bc85e4371f7",
     "user_id": "default_user",
     "project_name": "Hospital Management",
-    "status": "finalized",
+    "status": "in_progress",
     "stakeholder_chat": [
       {
         "role": "assistant",
@@ -353,7 +233,7 @@
     ],
     "developer_output": "Thought: I now can give a great answer\n\n# Functional Requirements\n\n## Patient Management\n\n* The system shall be able to manage patient information, including patient demographics, medical history, and treatment plans.\n* The system shall allow healthcare providers to view patient information, update patient records, and add new patient information.\n* The system shall enable healthcare providers to track patient appointments, including scheduling, rescheduling, and canceling appointments.\n* The system shall allow healthcare providers to manage patient billing and insurance information.\n\n## Hospital Management\n\n* The system shall provide real-time reporting and analytics on hospital operations, including patient flow, bed occupancy, and resource utilization.\n* The system shall enable hospital administrators to manage hospital resources, including staff scheduling, inventory management, and supply chain management.\n* The system shall allow hospital administrators to track hospital performance metrics, including patient satisfaction, quality of care, and financial performance.\n\n## User Management\n\n* The system shall allow for the creation and management of user accounts, including roles and permissions.\n* The system shall enable administrators to assign roles and permissions to users, including healthcare providers, hospital administrators, and other stakeholders.\n* The system shall allow users to log in and access the system securely.\n\n## System Integration\n\n* The system shall integrate with existing hospital systems, including electronic health records (EHRs), laboratory information systems (LIS), and radiology information systems (RIS).\n* The system shall enable data exchange between the hospital and external partners, including insurance companies, pharmacies, and other healthcare providers.\n\n## System Maintenance\n\n* The system shall be designed for scalability and reliability, with the ability to handle a maximum of 7 concurrent users.\n* The system shall be designed for high availability, with a recovery window of 1-2 hours in the event of a system failure.\n* The system shall be designed for security, with robust authentication and authorization mechanisms to protect patient data.\n\n# Non-Functional Requirements\n\n## Performance\n\n* The system shall respond to user input within 2 seconds.\n* The system shall be able to handle a maximum of 7 concurrent users.\n* The system shall be able to process patient data within 1 second.\n\n## Security\n\n* The system shall be designed to protect patient data, including sensitive information such as medical history and treatment plans.\n* The system shall use robust authentication and authorization mechanisms to ensure that only authorized users can access patient data.\n* The system shall be compliant with relevant healthcare regulations, including HIPAA.\n\n## Usability\n\n* The system shall be user-friendly and intuitive, with a simple and consistent user interface.\n* The system shall provide clear and concise feedback to users, including error messages and success notifications.\n* The system shall be accessible to users with disabilities, including visual and auditory impairments.\n\n## Availability\n\n* The system shall be available 24/7, with a recovery window of 1-2 hours in the event of a system failure.\n* The system shall be designed for high availability, with multiple redundant systems and data centers.\n* The system shall be able to handle system maintenance and updates without disrupting user access.",
     "created_at": "2026-01-30T13:00:31.632127",
-    "updated_at": "2026-01-30T13:40:47.784523",
+    "updated_at": "2026-01-31T00:28:34.098534",
     "validated_problem": {
       "feasible": false,
       "key_risks": [
@@ -369,7 +249,7 @@
     "session_id": "7fe92001-95b6-49f8-b475-0017f0d7b7c2",
     "user_id": "default_user",
     "project_name": "Vizag_MSH",
-    "status": "finalized",
+    "status": "developing",
     "stakeholder_chat": [
       {
         "role": "assistant",
@@ -478,7 +358,7 @@
     ],
     "developer_output": "Thought: I now can give a great answer\n\n# Functional Requirements\n\n## Patient Registration\n\n* The system shall allow patients to register themselves with their personal details, including name, date of birth, contact information, and medical history.\n* The system shall validate patient registration data for accuracy and completeness.\n* The system shall store patient registration data securely and in compliance with relevant regulations.\n\n## Patient Scheduling\n\n* The system shall allow patients to schedule appointments with healthcare providers.\n* The system shall display available appointment slots for patients to choose from.\n* The system shall send reminders to patients about upcoming appointments.\n\n## Patient Check-in\n\n* The system shall allow patients to check-in for their scheduled appointments.\n* The system shall verify patient identity and appointment details.\n* The system shall update patient status to \"checked-in\" in the system.\n\n## Patient Check-out\n\n* The system shall allow patients to check-out after their appointments.\n* The system shall update patient status to \"checked-out\" in the system.\n* The system shall send a survey to patients to gather feedback about their experience.\n\n## Patient Data Management\n\n* The system shall store patient medical history, including diagnoses, treatments, and test results.\n* The system shall allow healthcare providers to update patient medical history.\n* The system shall display patient medical history to authorized healthcare providers.\n\n## Reporting and Analytics\n\n* The system shall generate reports on patient volume, appointment schedules, and patient outcomes.\n* The system shall provide analytics on patient demographics, medical history, and treatment outcomes.\n* The system shall display reports and analytics to authorized healthcare providers.\n\n# Non-Functional Requirements\n\n## Performance\n\n* The system shall respond to user input within 2 seconds.\n* The system shall handle 200-300 patient registrations per day without significant performance degradation.\n* The system shall handle 200-300 patient check-ins and check-outs per day without significant performance degradation.\n\n## Security\n\n* The system shall store patient data securely using encryption and access controls.\n* The system shall comply with relevant regulations, including HIPAA and GDPR.\n* The system shall have a disaster recovery plan in place to ensure business continuity.\n\n## Usability\n\n* The system shall have an intuitive user interface that is easy to navigate.\n* The system shall provide clear and concise instructions to users.\n* The system shall be accessible on multiple devices, including desktops, laptops, and mobile devices.\n\n## Scalability\n\n* The system shall be designed to scale horizontally to handle increased patient volume.\n* The system shall be able to handle increased data storage requirements without significant performance degradation.\n* The system shall be able to integrate with other systems and applications as needed.",
     "created_at": "2026-01-30T13:46:04.294879",
-    "updated_at": "2026-01-30T14:13:44.636985",
+    "updated_at": "2026-01-31T00:28:24.088054",
     "validated_problem": {
       "feasible": false,
       "key_risks": [
@@ -874,40 +754,15 @@
     ],
     "developer_output": "Thought: I now can give a great answer\n\nFinal Answer\n============\n\n# Functional Requirements\n------------------------\n\n### User Management\n\n* As a user, I want to be able to create an account with a unique username and password.\n* As a user, I want to be able to log in to my account using my username and password.\n* As a user, I want to be able to reset my password if I forget it.\n* As a user, I want to be able to view my account information, including my order history and wish list.\n\n### Product Management\n\n* As an administrator, I want to be able to add new products to the catalog.\n* As an administrator, I want to be able to edit existing products in the catalog.\n* As an administrator, I want to be able to delete products from the catalog.\n* As a user, I want to be able to view product details, including price, description, and images.\n\n### Order Management\n\n* As a user, I want to be able to place an order for products in my cart.\n* As a user, I want to be able to view my order history, including order status and tracking information.\n* As an administrator, I want to be able to view all orders, including order status and tracking information.\n\n### Payment Gateway\n\n* As a user, I want to be able to pay for my orders using a secure payment gateway.\n* As an administrator, I want to be able to configure the payment gateway settings.\n\n### Shipping and Logistics\n\n* As a user, I want to be able to view shipping options and costs for my order.\n* As an administrator, I want to be able to configure shipping options and costs.\n\n### Reporting and Analytics\n\n* As an administrator, I want to be able to view sales reports, including revenue and customer demographics.\n* As an administrator, I want to be able to view website analytics, including traffic and engagement metrics.\n\n# Non-Functional Requirements\n---------------------------\n\n### Performance\n\n* The system must be able to handle a minimum of 100 concurrent users.\n* The system must be able to process orders within 2 seconds.\n* The system must be able to display product information within 1 second.\n\n### Security\n\n* The system must use HTTPS encryption for all user interactions.\n* The system must use secure password hashing and salting for user passwords.\n* The system must use access controls to restrict user access to sensitive data.\n\n### Scalability\n\n* The system must be able to scale horizontally to handle increased traffic.\n* The system must be able to scale vertically to handle increased load.\n\n### Usability\n\n* The system must be accessible on a variety of devices, including desktops, laptops, tablets, and mobile phones.\n* The system must be easy to use, with clear and intuitive navigation and interfaces.\n* The system must be accessible to users with disabilities, including those with visual, auditory, motor, or cognitive disabilities.",
     "created_at": "2026-01-30T16:21:52.801006",
-    "updated_at": "2026-01-30T16:33:46.413680",
+    "updated_at": "2026-01-30T23:59:21.982426",
     "validated_problem": {
       "feasible": true,
       "key_risks": [
-        {
-          "risk": "Balancing quality and uniqueness with affordability",
-          "mitigation": "Usage of existing APIs/tools for inventory management and supply chain optimization"
-        },
-        {
-          "risk": "Effectively communicating the boutique's unique value proposition",
-          "mitigation": "Utilizing existing social media and marketing platforms for targeted advertising"
-        }
+        "Balancing quality and uniqueness with affordability",
+        "Effectively communicating the boutique's unique value proposition to the target customer"
       ],
-      "final_notes": "The budget of 30L is realistic for a boutique women's fashion and lifestyle business in an urban city. The technical complexity is moderate, but the use of existing APIs/tools can help mitigate risks. The location constraint is favorable, and the business type is well-defined. Overall, the project is feasible with careful planning and risk management."
+      "final_notes": "The budget of 30L is realistic for a boutique women's fashion and lifestyle business in an urban city. The technical complexity is low as it involves sourcing and curating products, which can be managed through existing APIs and tools. Location constraints are also not a concern as the business is based in an urban city. Regulatory feasibility is also not a concern as the business type is a boutique women's fashion and lifestyle business."
     }
-  },
-  "29303a34-07df-4f7b-a220-27e034e23523": {
-    "session_id": "29303a34-07df-4f7b-a220-27e034e23523",
-    "user_id": "default_user",
-    "project_name": "Project 29303a34",
-    "status": "questioning",
-    "stakeholder_chat": [
-      {
-        "role": "assistant",
-        "content": "What are the primary business objectives driving this project?"
-      }
-    ],
-    "raw_problem": [],
-    "primary_constraints": {},
-    "refined_problem": null,
-    "validator_chat": [],
-    "developer_output": null,
-    "created_at": "2026-01-30T16:34:16.073944",
-    "updated_at": "2026-01-30T16:34:16.604868"
   },
   "83987886-d344-40f9-8d0e-cb675adefcc0": {
     "session_id": "83987886-d344-40f9-8d0e-cb675adefcc0",
@@ -1040,6 +895,451 @@
         "Must comply with local health and safety regulations, which may introduce additional costs and complexities."
       ],
       "final_notes": "The project is feasible, but careful management of the limited budget and adherence to health and safety regulations will be crucial to its success."
+    }
+  },
+  "fb48a395-fe74-4faf-b060-54811c91a31e": {
+    "session_id": "fb48a395-fe74-4faf-b060-54811c91a31e",
+    "user_id": "default_user",
+    "project_name": "Resume generator",
+    "status": "in_progress",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I wanna build a resume generator app"
+      },
+      {
+        "role": "assistant",
+        "content": "Who is the target audience for this resume generator app?"
+      },
+      {
+        "role": "user",
+        "content": "Students , employee, freshers"
+      },
+      {
+        "role": "assistant",
+        "content": "What specific pain points or challenges do students, employees, and freshers face when creating a resume?"
+      },
+      {
+        "role": "user",
+        "content": "selecting a professional template\nCreating resume from scratch"
+      }
+    ],
+    "raw_problem": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I wanna build a resume generator app"
+      },
+      {
+        "role": "assistant",
+        "content": "Who is the target audience for this resume generator app?"
+      },
+      {
+        "role": "user",
+        "content": "Students , employee, freshers"
+      },
+      {
+        "role": "assistant",
+        "content": "What specific pain points or challenges do students, employees, and freshers face when creating a resume?"
+      },
+      {
+        "role": "user",
+        "content": "selecting a professional template\nCreating resume from scratch"
+      }
+    ],
+    "primary_constraints": [
+      "The app should be user-friendly and easy to navigate",
+      "The app should generate professional-looking resumes",
+      "The app should be available on multiple platforms (web, mobile)"
+    ],
+    "refined_problem": {
+      "problem_summary": "Develop a resume generator app that addresses the pain points of selecting a professional template and creating a resume from scratch for students, employees, and freshers.",
+      "in_scope": [
+        "Resume generation for students, employees, and freshers",
+        "Selecting a professional template",
+        "Creating a resume from scratch",
+        "Target audience: students, employees, and freshers"
+      ],
+      "out_of_scope": [
+        "Other types of document generation (e.g. cover letters, portfolios)",
+        "Advanced resume features (e.g. AI-powered resume optimization)",
+        "Integration with job boards or career platforms"
+      ],
+      "assumptions": [
+        "The target audience has basic computer skills and access to the internet",
+        "The resume generator app will be used for general resume creation, not for specific industries or roles"
+      ],
+      "constraints": [
+        "The app should be user-friendly and easy to navigate",
+        "The app should generate professional-looking resumes",
+        "The app should be available on multiple platforms (web, mobile)"
+      ],
+      "open_points": [
+        "How to ensure the app's resume templates are up-to-date and relevant",
+        "How to handle user input and preferences for resume customization",
+        "How to balance user experience with the need for professional-looking resumes"
+      ],
+      "feasible": true,
+      "feasibility_reason": "No concrete constraint updates were explicitly stated by the user."
+    },
+    "validator_chat": [
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "user",
+        "content": "Do you suggest me any other features"
+      },
+      {
+        "role": "assistant",
+        "content": "You mentioned wanting to add other features, but our current scope is focused on a resume generator app for students, employees, and freshers. Are those the only features you want to include in the app?"
+      },
+      {
+        "role": "user",
+        "content": "I wanna add cover letters and portfolios"
+      },
+      {
+        "role": "assistant",
+        "content": "You mentioned wanting to add cover letters and portfolios, but our scope is focused on a resume generator app. Are cover letters and portfolios out of scope for this project?"
+      },
+      {
+        "role": "user",
+        "content": "yeah"
+      },
+      {
+        "role": "assistant",
+        "content": "Great! Please click 'Finalize Specs' to proceed."
+      }
+    ],
+    "developer_output": "Thought: I now can give a great answer\n\nFinal Answer\n\n# Functional Requirements\n\n## FR-01: User-Friendly Interface\nThe system shall provide a user-friendly interface that is easy to navigate, allowing users to create and customize their resumes with minimal effort.\n\n## FR-02: Resume Generation\nThe system shall generate professional-looking resumes based on user input, including but not limited to:\n- Contact information\n- Work experience\n- Education\n- Skills\n- Achievements\n\n## FR-03: Multi-Platform Support\nThe system shall be available on multiple platforms, including:\n- Web (responsive design)\n- Mobile (iOS and Android)\n\n## FR-04: Resume Customization\nThe system shall allow users to customize their resumes, including but not limited to:\n- Choosing from pre-designed templates\n- Adding or removing sections\n- Customizing font styles and sizes\n- Uploading personal images or logos\n\n## FR-05: User Profile Management\nThe system shall allow users to create and manage their profiles, including but not limited to:\n- Saving and loading resume templates\n- Tracking resume views and downloads\n- Managing account settings and preferences\n\n## FR-06: Resume Sharing\nThe system shall allow users to share their resumes with others, including but not limited to:\n- Email\n- Social media\n- Online job boards\n\n## FR-07: Resume Analytics\nThe system shall provide users with analytics and insights on their resume performance, including but not limited to:\n- Resume views and downloads\n- Time spent on resume\n- User engagement metrics\n\n# Non-Functional Requirements\n\n## NFR-01: Performance\nThe system shall respond to user input within 2 seconds, and shall maintain a consistent response time of less than 3 seconds under normal usage.\n\n## NFR-02: Security\nThe system shall ensure the confidentiality, integrity, and availability of user data, including but not limited to:\n- Password encryption\n- Data backup and recovery\n- Access controls and authentication\n\n## NFR-03: Usability\nThe system shall be designed to be user-friendly and accessible, including but not limited to:\n- Clear and concise language\n- Intuitive navigation and layout\n- Compatibility with assistive technologies\n\n## NFR-04: Scalability\nThe system shall be designed to scale horizontally and vertically to accommodate increasing user demand, including but not limited to:\n- Load balancing\n- Caching\n- Database optimization\n\n## NFR-05: Maintainability\nThe system shall be designed to be easily maintainable and updatable, including but not limited to:\n- Modular code structure\n- Automated testing and deployment\n- Continuous integration and delivery",
+    "created_at": "2026-01-30T23:51:31.960439",
+    "updated_at": "2026-02-06T09:58:22.118262",
+    "validated_problem": {
+      "feasible": true,
+      "key_risks": [
+        {
+          "risk": "Usage of existing APIs/tools may be limited due to budget constraints",
+          "mitigation": "Utilize open-source libraries and free APIs to minimize costs"
+        },
+        {
+          "risk": "Ensuring resume templates are up-to-date and relevant may be a challenge",
+          "mitigation": "Regularly update templates and involve user feedback to maintain relevance"
+        },
+        {
+          "risk": "Balancing user experience with professional-looking resumes may require iterative design",
+          "mitigation": "Conduct user testing and gather feedback to refine the app's design"
+        }
+      ],
+      "final_notes": "The project appears feasible with careful planning and resource allocation. Focus on leveraging existing tools and APIs to minimize costs, and prioritize user feedback to ensure the app meets its requirements."
+    }
+  },
+  "43a5a388-95de-47ef-bcbd-86891b3869d6": {
+    "session_id": "43a5a388-95de-47ef-bcbd-86891b3869d6",
+    "user_id": "default_user",
+    "project_name": "Resume generator",
+    "status": "finalized",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I wanna build a resume generator ap"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the target audience for this resume generator app?"
+      },
+      {
+        "role": "user",
+        "content": "students and employees"
+      },
+      {
+        "role": "assistant",
+        "content": "What are the primary pain points or challenges that students and employees currently face when generating their resumes?"
+      },
+      {
+        "role": "user",
+        "content": "while selecting templates which are ats friendly"
+      }
+    ],
+    "raw_problem": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I wanna build a resume generator ap"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the target audience for this resume generator app?"
+      },
+      {
+        "role": "user",
+        "content": "students and employees"
+      },
+      {
+        "role": "assistant",
+        "content": "What are the primary pain points or challenges that students and employees currently face when generating their resumes?"
+      },
+      {
+        "role": "user",
+        "content": "while selecting templates which are ats friendly"
+      }
+    ],
+    "primary_constraints": [
+      "The app should be designed for students and employees",
+      "The app should address the pain point of selecting ATS-friendly templates",
+      "The app should be focused on generating resumes"
+    ],
+    "refined_problem": {
+      "problem_summary": "Develop a resume generator app that addresses the pain point of selecting ATS-friendly templates for students and employees.",
+      "in_scope": [
+        "Building a resume generator app",
+        "Targeting students and employees as the primary users",
+        "Addressing the pain point of selecting ATS-friendly templates",
+        "Generating resumes for students and employees"
+      ],
+      "out_of_scope": [
+        "Other types of job seekers (e.g. freelancers, entrepreneurs)",
+        "Resume writing services beyond template selection",
+        "ATS-friendly content creation (beyond template selection)",
+        "Integration with other job search tools"
+      ],
+      "assumptions": [
+        "The target audience (students and employees) is the primary focus",
+        "ATS-friendly templates are the primary pain point",
+        "The resume generator app will be used for generating resumes only"
+      ],
+      "constraints": [
+        "The app should be designed for students and employees",
+        "The app should address the pain point of selecting ATS-friendly templates",
+        "The app should be focused on generating resumes"
+      ],
+      "open_points": [
+        "What are the specific ATS systems that the templates should be compatible with?",
+        "How will the app ensure that the generated resumes are ATS-friendly?",
+        "Are there any specific features or functionalities that the app should have?"
+      ],
+      "feasible": true,
+      "feasibility_reason": "User validation overrides previous constraints"
+    },
+    "validator_chat": [
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "user",
+        "content": "The target audience (students and employees) is the primary focus\nATS-friendly templates are the primary pain point\nThe resume generator app will be used for generating resumes only"
+      },
+      {
+        "role": "assistant",
+        "content": "You've confirmed the primary focus is on students and employees, and the main pain point is selecting ATS-friendly templates. \n\nAre the generated resumes intended to be downloadable in PDF format?"
+      },
+      {
+        "role": "user",
+        "content": "yeah"
+      },
+      {
+        "role": "assistant",
+        "content": "Great! Please click 'Finalize Specs' to proceed."
+      }
+    ],
+    "developer_output": "Thought: I now can give a great answer\n\n# Functional Requirements\n\n## FR1: User Registration and Login\n- The system shall allow students and employees to create an account using their email address and password.\n- The system shall verify the user's email address and send a confirmation link to activate the account.\n- The system shall allow users to log in using their email address and password.\n\n## FR2: Resume Generation\n- The system shall provide a template selection feature for users to choose from ATS-friendly templates.\n- The system shall allow users to input their personal and professional information, including education, work experience, and skills.\n- The system shall generate a resume based on the user's input and selected template.\n- The system shall allow users to customize the resume layout and design.\n\n## FR3: Template Management\n- The system shall allow administrators to upload and manage ATS-friendly templates.\n- The system shall allow administrators to categorize and tag templates for easy searching.\n- The system shall allow administrators to approve or reject user-submitted templates.\n\n## FR4: User Profile Management\n- The system shall allow users to view and edit their profile information, including education, work experience, and skills.\n- The system shall allow users to upload a profile picture and cover letter.\n\n## FR5: Resume Sharing and Downloading\n- The system shall allow users to share their resume with others via email or link.\n- The system shall allow users to download their resume in various formats (e.g., PDF, Word).\n\n## FR6: System Notifications\n- The system shall send notifications to users for account activation, password reset, and resume sharing.\n- The system shall send notifications to administrators for new template submissions and user activity.\n\n# Non-Functional Requirements\n\n## NFR1: Performance\n- The system shall respond to user input within 2 seconds.\n- The system shall generate a resume within 5 seconds.\n- The system shall handle a minimum of 100 concurrent users without a significant decrease in performance.\n\n## NFR2: Security\n- The system shall use HTTPS encryption for all data transmission.\n- The system shall store user passwords securely using a salted hash.\n- The system shall implement rate limiting to prevent brute-force attacks.\n\n## NFR3: Usability\n- The system shall have a user-friendly interface with clear navigation and labeling.\n- The system shall provide tooltips and help text for complex features.\n- The system shall be accessible on desktop and mobile devices.\n\n## NFR4: Scalability\n- The system shall be designed to scale horizontally to handle increased traffic.\n- The system shall use a load balancer to distribute traffic across multiple servers.\n- The system shall use a database that can handle high concurrency.\n\n## NFR5: Availability\n- The system shall be available 99.9% of the time, excluding scheduled maintenance.\n- The system shall have a backup and recovery plan in place.\n- The system shall have a disaster recovery plan in place.",
+    "created_at": "2026-03-06T10:55:09.981916",
+    "updated_at": "2026-03-06T12:42:44.014068",
+    "validated_problem": {
+      "feasible": true,
+      "key_risks": [
+        "The project assumes that the target audience (students and employees) is the primary focus, but it's unclear if this assumption is accurate and if the app will be widely adopted by this group.",
+        "The project relies on the assumption that ATS-friendly templates are the primary pain point, but it's unclear if this assumption is accurate and if the app will be able to effectively address this pain point.",
+        "The project does not provide clear guidance on how the app will ensure that the generated resumes are ATS-friendly, which could lead to potential issues with resume compatibility.",
+        "The project does not provide clear guidance on what specific ATS systems the templates should be compatible with, which could lead to potential issues with resume compatibility."
+      ],
+      "final_notes": "The project scope appears to be feasible based on the provided constraints and assumptions. However, there are several key risks that need to be addressed, including the accuracy of the target audience assumption, the effectiveness of the ATS-friendly template solution, and the potential issues with resume compatibility."
+    },
+    "visualization_output": {
+      "useCase": "@startuml\nactor User\nactor Administrator\nparticipant System\n\nUser -> System: Register\nSystem -> User: Send confirmation link\nUser -> System: Activate account\nUser -> System: Login\nSystem -> User: Grant access\n\nAdministrator -> System: Upload template\nSystem -> Administrator: Store template\nAdministrator -> System: Approve template\nSystem -> Administrator: Notify users\n\nUser -> System: Select template\nSystem -> User: Display template\nUser -> System: Input information\nSystem -> User: Generate resume\nUser -> System: Customize layout\nSystem -> User: Display resume\n\nnote right: User can share resume with others\nUser -> System: Share resume\nSystem -> User: Send link or email\n\nnote right: Administrator can view user activity\nAdministrator -> System: View user activity\nSystem -> Administrator: Display activity\n\n@enduml",
+      "class": "@startuml\nclass User {\n  - email: string\n  - password: string\n  - profile: Profile\n}\n\nclass Profile {\n  - education: string\n  - workExperience: string\n  - skills: string\n}\n\nclass Administrator {\n  - email: string\n  - password: string\n}\n\nclass Template {\n  - id: int\n  - name: string\n  - description: string\n}\n\nclass Resume {\n  - id: int\n  - user: User\n  - template: Template\n  - information: string\n}\n\nUser --* Profile\nUser --* Resume\nAdministrator --* Template\nResume --* Template\n@enduml",
+      "sequence": "@startuml\nparticipant User\nparticipant System\n\nUser ->> System: Register\nactivate System\nSystem ->> User: Send confirmation link\ndeactivate System\n\nUser ->> System: Activate account\nactivate System\nSystem ->> User: Grant access\ndeactivate System\n\nUser ->> System: Login\nactivate System\nSystem ->> User: Grant access\ndeactivate System\n\nUser ->> System: Select template\nactivate System\nSystem ->> User: Display template\ndeactivate System\n\nUser ->> System: Input information\nactivate System\nSystem ->> User: Generate resume\ndeactivate System\n\nUser ->> System: Customize layout\nactivate System\nSystem ->> User: Display resume\ndeactivate System\n\nnote right: User can share resume with others\nUser ->> System: Share resume\nactivate System\nSystem ->> User: Send link or email\ndeactivate System\n\n@enduml",
+      "activity": "@startuml\nstart\n: User registers;\n: System sends confirmation link;\n: User activates account;\n: User logs in;\n: User selects template;\n: User inputs information;\n: System generates resume;\n: User customizes layout;\n: User shares resume;\n: System sends link or email;\nstop\n\nnote right: Administrator can view user activity\n: Administrator views user activity;\n@enduml",
+      "raw": "```plantuml\n@startuml\nactor User\nactor Administrator\nparticipant System\n\nUser -> System: Register\nSystem -> User: Send confirmation link\nUser -> System: Activate account\nUser -> System: Login\nSystem -> User: Grant access\n\nAdministrator -> System: Upload template\nSystem -> Administrator: Store template\nAdministrator -> System: Approve template\nSystem -> Administrator: Notify users\n\nUser -> System: Select template\nSystem -> User: Display template\nUser -> System: Input information\nSystem -> User: Generate resume\nUser -> System: Customize layout\nSystem -> User: Display resume\n\nnote right: User can share resume with others\nUser -> System: Share resume\nSystem -> User: Send link or email\n\nnote right: Administrator can view user activity\nAdministrator -> System: View user activity\nSystem -> Administrator: Display activity\n\n@enduml\n```\n\n```plantuml\n@startuml\nclass User {\n  - email: string\n  - password: string\n  - profile: Profile\n}\n\nclass Profile {\n  - education: string\n  - workExperience: string\n  - skills: string\n}\n\nclass Administrator {\n  - email: string\n  - password: string\n}\n\nclass Template {\n  - id: int\n  - name: string\n  - description: string\n}\n\nclass Resume {\n  - id: int\n  - user: User\n  - template: Template\n  - information: string\n}\n\nUser --* Profile\nUser --* Resume\nAdministrator --* Template\nResume --* Template\n@enduml\n```\n\n```plantuml\n@startuml\nparticipant User\nparticipant System\n\nUser ->> System: Register\nactivate System\nSystem ->> User: Send confirmation link\ndeactivate System\n\nUser ->> System: Activate account\nactivate System\nSystem ->> User: Grant access\ndeactivate System\n\nUser ->> System: Login\nactivate System\nSystem ->> User: Grant access\ndeactivate System\n\nUser ->> System: Select template\nactivate System\nSystem ->> User: Display template\ndeactivate System\n\nUser ->> System: Input information\nactivate System\nSystem ->> User: Generate resume\ndeactivate System\n\nUser ->> System: Customize layout\nactivate System\nSystem ->> User: Display resume\ndeactivate System\n\nnote right: User can share resume with others\nUser ->> System: Share resume\nactivate System\nSystem ->> User: Send link or email\ndeactivate System\n\n@enduml\n```\n\n```plantuml\n@startuml\nstart\n: User registers;\n: System sends confirmation link;\n: User activates account;\n: User logs in;\n: User selects template;\n: User inputs information;\n: System generates resume;\n: User customizes layout;\n: User shares resume;\n: System sends link or email;\nstop\n\nnote right: Administrator can view user activity\n: Administrator views user activity;\n@enduml\n```"
+    }
+  },
+  "928a0e14-df0a-41a5-8a71-c046ef119008": {
+    "session_id": "928a0e14-df0a-41a5-8a71-c046ef119008",
+    "user_id": "default_user",
+    "project_name": "Project 928a0e14",
+    "status": "questioning",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      }
+    ],
+    "raw_problem": [],
+    "primary_constraints": {},
+    "refined_problem": null,
+    "validator_chat": [],
+    "developer_output": null,
+    "created_at": "2026-03-06T15:02:45.493595",
+    "updated_at": "2026-03-06T15:02:50.130549"
+  },
+  "4eaf0c3d-c7c5-4983-80b8-bf234770ae33": {
+    "session_id": "4eaf0c3d-c7c5-4983-80b8-bf234770ae33",
+    "user_id": "default_user",
+    "project_name": "Project 4eaf0c3d",
+    "status": "visualizing",
+    "stakeholder_chat": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I wanna build a car parking management app"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the target audience for this car parking management app?"
+      },
+      {
+        "role": "user",
+        "content": "car drivers and owners"
+      },
+      {
+        "role": "assistant",
+        "content": "What features will this app offer to car drivers and owners?"
+      },
+      {
+        "role": "user",
+        "content": "An app consists of available parking slots near the vehicle's area and online payments etc"
+      }
+    ],
+    "raw_problem": [
+      {
+        "role": "assistant",
+        "content": "What are the key business objectives driving this project?"
+      },
+      {
+        "role": "user",
+        "content": "I wanna build a car parking management app"
+      },
+      {
+        "role": "assistant",
+        "content": "What is the target audience for this car parking management app?"
+      },
+      {
+        "role": "user",
+        "content": "car drivers and owners"
+      },
+      {
+        "role": "assistant",
+        "content": "What features will this app offer to car drivers and owners?"
+      },
+      {
+        "role": "user",
+        "content": "An app consists of available parking slots near the vehicle's area and online payments etc"
+      }
+    ],
+    "primary_constraints": {
+      "budget": "20L",
+      "location": "India",
+      "business_type": "Car Parking Management App"
+    },
+    "refined_problem": {
+      "problem_summary": "Develop a car parking management app for car drivers and owners to find available parking slots near their vehicle's location and facilitate online payments.",
+      "in_scope": [
+        "Car parking management app",
+        "Target audience: car drivers and owners",
+        "Features: available parking slots near the vehicle's area and online payments"
+      ],
+      "out_of_scope": [
+        "Other types of transportation management apps",
+        "Features beyond parking slot availability and online payments",
+        "Integration with external services beyond parking management"
+      ],
+      "assumptions": [
+        "The app will be used in areas with reliable internet connectivity",
+        "The app will be used by individuals with a smartphone or other mobile device",
+        "Parking slot availability will be accurately represented in the app"
+      ],
+      "constraints": {
+        "budget": "20L",
+        "location": "India",
+        "business_type": "Car Parking Management App"
+      },
+      "open_points": [
+        "How will parking slot availability be updated in real-time?",
+        "What payment gateways will be integrated into the app?",
+        "How will user feedback and reviews be handled?"
+      ],
+      "feasible": true,
+      "feasibility_reason": "User provided concrete constraint updates",
+      "budget": "20L",
+      "location": "India",
+      "business_type": "Car Parking Management App"
+    },
+    "validator_chat": [
+      {
+        "role": "assistant",
+        "content": "Validation phase started. You may ask questions, suggest corrections, or add constraints."
+      },
+      {
+        "role": "user",
+        "content": "The app will be used in areas with reliable internet connectivity\nThe app will be used by individuals with a smartphone or other mobile device\nParking slot availability will be accurately represented in the app"
+      },
+      {
+        "role": "assistant",
+        "content": "You've added some assumptions about the app's users and parking slot availability. \n\nWho do you think will be the main users of this car parking management app?"
+      },
+      {
+        "role": "user",
+        "content": "Car drivers"
+      },
+      {
+        "role": "assistant",
+        "content": "So, the main users of this car parking management app will be car drivers. What features would you like the app to have for these drivers?"
+      },
+      {
+        "role": "user",
+        "content": " available parking slots near the vehicle's area and online payments"
+      },
+      {
+        "role": "assistant",
+        "content": "So, the main users of this car parking management app will be car drivers, and you'd like the app to have features for available parking slots near the vehicle's area and online payments. \n\nWho do you think will be the owners of the cars that will be using this app?"
+      }
+    ],
+    "developer_output": "Thought: I now can give a great answer\n\nFinal Answer\n\n# Functional Requirements\n\n## User Registration and Login\n\n* The system shall allow users to register with a unique username and password.\n* The system shall validate user input for registration and login, ensuring that the username is unique and the password meets the required complexity criteria.\n* The system shall store user credentials securely using a suitable hashing algorithm.\n* The system shall allow users to login using their registered username and password.\n* The system shall display a user's profile information after successful login.\n\n## Parking Lot Management\n\n* The system shall allow administrators to create, update, and delete parking lots.\n* The system shall display a list of available parking lots, including their location and capacity.\n* The system shall allow users to book a parking spot in a parking lot.\n* The system shall display a user's booked parking spot, including the parking lot name, location, and duration.\n* The system shall send reminders to users for upcoming bookings and expiring bookings.\n\n## Payment Gateway Integration\n\n* The system shall integrate with a payment gateway to facilitate online payments.\n* The system shall display a payment gateway for users to make payments for booked parking spots.\n* The system shall process payments securely using a suitable payment gateway API.\n\n## Reporting and Analytics\n\n* The system shall generate reports on parking lot usage, including the number of bookings, revenue, and occupancy rates.\n* The system shall display analytics on user behavior, including booking frequency and duration.\n\n## System Maintenance\n\n* The system shall allow administrators to update and configure system settings, including email notifications and payment gateway settings.\n* The system shall display system logs for debugging and troubleshooting purposes.\n\n# Non-Functional Requirements\n\n## Performance\n\n* The system shall respond to user input within 2 seconds.\n* The system shall handle a minimum of 100 concurrent user sessions without degradation in performance.\n* The system shall process payments within 5 seconds.\n\n## Security\n\n* The system shall use HTTPS for secure communication between the client and server.\n* The system shall store user credentials securely using a suitable hashing algorithm.\n* The system shall implement access controls to restrict user access to sensitive data.\n\n## Usability\n\n* The system shall have a user-friendly interface that is easy to navigate.\n* The system shall provide clear and concise error messages for user input validation.\n* The system shall support multiple languages for internationalization.\n\n## Scalability\n\n* The system shall be designed to scale horizontally to handle increased traffic.\n* The system shall use a load balancer to distribute traffic across multiple instances.\n* The system shall use a database that supports horizontal partitioning.\n\n## Availability\n\n* The system shall be available 99.99% of the time, excluding scheduled maintenance.\n* The system shall have a backup and disaster recovery plan in place.\n* The system shall have a monitoring system in place to detect and respond to system failures.",
+    "created_at": "2026-03-06T15:02:45.537281",
+    "updated_at": "2026-03-06T15:06:36.673736",
+    "validated_problem": {
+      "feasible": true,
+      "key_risks": [
+        "Dependence on reliable internet connectivity in the target area (India) may impact app performance and user experience.",
+        "Accurate representation of parking slot availability relies on timely and accurate updates from parking management systems, which may introduce risks of data inconsistencies or inaccuracies.",
+        "Integration with payment gateways may introduce security risks if not properly implemented, and the selection of payment gateways may impact user experience and app functionality."
+      ],
+      "final_notes": "The project scope appears feasible based on the provided constraints and assumptions. However, careful consideration of the identified key risks is necessary to ensure the successful development and deployment of the car parking management app."
+    },
+    "visualization_output": {
+      "useCase": "@startuml\nactor User\nactor Administrator\nparticipant ParkingLotManagementSystem\nUser ->> ParkingLotManagementSystem: Register\nUser ->> ParkingLotManagementSystem: Login\nAdministrator ->> ParkingLotManagementSystem: Create Parking Lot\nAdministrator ->> ParkingLotManagementSystem: Update Parking Lot\nAdministrator ->> ParkingLotManagementSystem: Delete Parking Lot\nUser ->> ParkingLotManagementSystem: Book Parking Spot\nUser ->> ParkingLotManagementSystem: View Booked Parking Spot\nParkingLotManagementSystem ->> User: Send Reminder\n@enduml",
+      "class": "@startuml\nclass User {\n  - username: string\n  - password: string\n  + register(username: string, password: string)\n  + login(username: string, password: string)\n}\n\nclass Administrator {\n  + createParkingLot(name: string, location: string, capacity: integer)\n  + updateParkingLot(name: string, location: string, capacity: integer)\n  + deleteParkingLot(name: string)\n}\n\nclass ParkingLot {\n  - name: string\n  - location: string\n  - capacity: integer\n  - bookings: list\n}\n\nclass PaymentGateway {\n  + processPayment(amount: decimal)\n}\n\nclass ParkingLotManagementSystem {\n  + registerUser(username: string, password: string)\n  + loginUser(username: string, password: string)\n  + createParkingLot(name: string, location: string, capacity: integer)\n  + updateParkingLot(name: string, location: string, capacity: integer)\n  + deleteParkingLot(name: string)\n  + bookParkingSpot(user: User, parkingLot: ParkingLot)\n  + viewBookedParkingSpot(user: User)\n  + sendReminder(user: User)\n}\n\nUser --* ParkingLotManagementSystem\nAdministrator --* ParkingLotManagementSystem\nParkingLotManagementSystem --* ParkingLot\nParkingLotManagementSystem --* PaymentGateway\n@enduml",
+      "sequence": "@startuml\nparticipant User\nparticipant ParkingLotManagementSystem\nparticipant PaymentGateway\nUser ->> ParkingLotManagementSystem: Register\nUser ->> ParkingLotManagementSystem: Login\nParkingLotManagementSystem ->> User: Display Profile\nUser ->> ParkingLotManagementSystem: Book Parking Spot\nParkingLotManagementSystem ->> PaymentGateway: Process Payment\nPaymentGateway ->> ParkingLotManagementSystem: Payment Response\nParkingLotManagementSystem ->> User: Display Booked Parking Spot\n@enduml",
+      "activity": "@startuml\nstart\n: User registers and logs in;\n: Administrator creates a parking lot;\n: User books a parking spot;\n: ParkingLotManagementSystem sends a reminder;\n: User makes a payment;\n: ParkingLotManagementSystem updates the parking lot status;\n: Administrator views the parking lot usage report;\nstop\n\nnote right: The system generates reports on parking lot usage and user behavior.\n@enduml",
+      "raw": "Final Answer\n\n```plantuml\n@startuml\nactor User\nactor Administrator\nparticipant ParkingLotManagementSystem\nUser ->> ParkingLotManagementSystem: Register\nUser ->> ParkingLotManagementSystem: Login\nAdministrator ->> ParkingLotManagementSystem: Create Parking Lot\nAdministrator ->> ParkingLotManagementSystem: Update Parking Lot\nAdministrator ->> ParkingLotManagementSystem: Delete Parking Lot\nUser ->> ParkingLotManagementSystem: Book Parking Spot\nUser ->> ParkingLotManagementSystem: View Booked Parking Spot\nParkingLotManagementSystem ->> User: Send Reminder\n@enduml\n```\n\n```plantuml\n@startuml\nclass User {\n  - username: string\n  - password: string\n  + register(username: string, password: string)\n  + login(username: string, password: string)\n}\n\nclass Administrator {\n  + createParkingLot(name: string, location: string, capacity: integer)\n  + updateParkingLot(name: string, location: string, capacity: integer)\n  + deleteParkingLot(name: string)\n}\n\nclass ParkingLot {\n  - name: string\n  - location: string\n  - capacity: integer\n  - bookings: list\n}\n\nclass PaymentGateway {\n  + processPayment(amount: decimal)\n}\n\nclass ParkingLotManagementSystem {\n  + registerUser(username: string, password: string)\n  + loginUser(username: string, password: string)\n  + createParkingLot(name: string, location: string, capacity: integer)\n  + updateParkingLot(name: string, location: string, capacity: integer)\n  + deleteParkingLot(name: string)\n  + bookParkingSpot(user: User, parkingLot: ParkingLot)\n  + viewBookedParkingSpot(user: User)\n  + sendReminder(user: User)\n}\n\nUser --* ParkingLotManagementSystem\nAdministrator --* ParkingLotManagementSystem\nParkingLotManagementSystem --* ParkingLot\nParkingLotManagementSystem --* PaymentGateway\n@enduml\n```\n\n```plantuml\n@startuml\nparticipant User\nparticipant ParkingLotManagementSystem\nparticipant PaymentGateway\nUser ->> ParkingLotManagementSystem: Register\nUser ->> ParkingLotManagementSystem: Login\nParkingLotManagementSystem ->> User: Display Profile\nUser ->> ParkingLotManagementSystem: Book Parking Spot\nParkingLotManagementSystem ->> PaymentGateway: Process Payment\nPaymentGateway ->> ParkingLotManagementSystem: Payment Response\nParkingLotManagementSystem ->> User: Display Booked Parking Spot\n@enduml\n```\n\n```plantuml\n@startuml\nstart\n: User registers and logs in;\n: Administrator creates a parking lot;\n: User books a parking spot;\n: ParkingLotManagementSystem sends a reminder;\n: User makes a payment;\n: ParkingLotManagementSystem updates the parking lot status;\n: Administrator views the parking lot usage report;\nstop\n\nnote right: The system generates reports on parking lot usage and user behavior.\n@enduml\n```"
     }
   }
 }

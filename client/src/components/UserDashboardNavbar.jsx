@@ -1,4 +1,4 @@
-import { ChevronDown, LogOut, LayoutGrid, FileCheck, Code2, FileText, Bot } from "lucide-react";
+import { ChevronDown, LogOut, LayoutGrid, FileCheck, Code2, FileText, Bot, Workflow } from "lucide-react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import logo from '../assets/Logos/Logo.svg';
 
@@ -39,6 +39,7 @@ export default function UserDashboardNavbar() {
                                 { path: "/dashboard", label: "Agent", icon: Bot },
                                 { path: "/validator", label: "Validator", icon: FileCheck },
                                 { path: "/developer", label: "Developer", icon: Code2 },
+                                { path: "/visualization", label: "Diagrams", icon: Workflow },
                                 { path: "/output", label: "Output", icon: FileText }
                             ].map((item) => (
                                 <NavLink

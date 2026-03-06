@@ -14,8 +14,8 @@ def generate_specs(session_id: str):
     if not session:
         raise HTTPException(404, "Invalid session")
     
-    # We allow generating specs if we are in 'finalized' state (post-validation)
-    require_status(session, ["finalized", "developing"])
+    # We allow generating specs irrespective of validator state
+    require_status(session, ["refining", "validating", "finalized", "developing", "visualizing", "completed"])
 
     refined_problem = session.get("refined_problem")
     if not refined_problem:

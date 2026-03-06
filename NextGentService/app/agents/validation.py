@@ -41,17 +41,18 @@ def validation_agent_reply(refined_problem: dict, validator_chat: list[dict]) ->
     # -----------------------------------------------------------
 
     prompt = f"""
-You are a helpful and clear Requirements Consultant.
+You are a friendly Requirements Consultant for a software project.
 You are talking to a non-technical stakeholder who wants to build software.
 
 Your Goal:
-- Verify that the requirements are clear and complete.
-- Ensure the user is happy with what we will build.
+- Verify that the requirements are clear and complete but keep it extremely simple.
+- Ask ONLY project-related questions (e.g., about users, timeline, core features).
+- IMPORTANT: DO NOT OVERWHELM THE USER. Ask one simple question at a time.
 
 STRICT RULES:
-1. Ask ONLY ONE simple question at a time. Do not ask multiple questions.
+1. Ask ONLY ONE simple, easy-to-understand project-related question at a time. Do not ask multiple questions.
 2. Use plain English. NO technical jargon (e.g., avoid "RTO/RPO", "RBAC", "latency", "schema").
-3. Keep your response SHORT (max 2-3 sentences).
+3. Keep your response VERY SHORT (max 1-2 sentences).
 4. Do NOT lecture the user on best practices. Just ask your question gently.
 
 5. CRITICAL: If the user explicitly agrees ("Yes", "Confirm") to your previous summary or questions, DO NOT ASK AGAIN.
@@ -79,36 +80,38 @@ def finalize_validation(refined_problem: dict) -> dict:
     prompt = f"""
         You are a Senior System Architect.
 
-        Evaluate feasibility logically based on:
-        - budget realism
-        - technical complexity
-        - location constraints
-        - scope vs budget
-        - regulatory feasibility
+        Evaluate the project scope and identify any key risks.
 
         CRITICAL INSTRUCTION:
-        - Default to "feasible": true unless there is a MATHEMATICALLY IMPOSSIBLE constraint (e.g. building a Mars rover for $50).
-        - If the budget is tight but possible, mark it as FEASIBLE and list usage of existing APIs/tools as a risk mitigation.
-        - Do not be overly pessimistic. If it can be built, it is feasible.
+        - We ALWAYS treat the project as feasible to allow the generation of the final documentation.
+        - Ensure "feasible" is set to true.
 
         RULES
         - Do NOT modify constraints.
         - Do NOT suggest updates.
-        - Only judge feasibility.
+        - Only judge feasibility and identify risks.
 
         Refined Problem:
         {refined_problem}
 
         Respond ONLY JSON:
         {{
-        "feasible": true | false,
+        "feasible": true,
         "key_risks": [],
         "final_notes": "..."
         }}
     """
 
     response = call_llm_with_retry(messages=[{"role": "user", "content": prompt}])
-    return extract_json(response)
+    result = extract_json(response)
+    
+    # Force feasible to be True to prevent the "Needs Revision" infinite loop
+    # We still want the LLM to generate risks and notes, but we won't block the user.
+    if not isinstance(result, dict):
+        result = {}
+    result["feasible"] = True
+    
+    return result
 
 
 def detect_required_changes(
@@ -133,7 +136,7 @@ def detect_required_changes(
         - ALWAYS overwrite constraints if user explicitly updates them
         - User validation overrides previous constraints
         - If user input contradicts existing constraints, treat the new value as an UPDATE
-        - Do NOT mark feasible=false for constraint updates
+        - Set feasible to true.
 
         Refined Problem:
         {refined_problem}
@@ -145,7 +148,7 @@ def detect_required_changes(
 
         {{
         "changes_required": true | false,
-        "feasible": true | false,
+        "feasible": true,
         "reason": "...",
         "corrections": {{
             "<constraint_name>": "<new_value>"
@@ -155,4 +158,8 @@ def detect_required_changes(
 
     response_text = call_llm_with_retry(messages=[{"role": "user", "content": prompt}])
 
-    return extract_json(response_text)
+    result = extract_json(response_text)
+    if not isinstance(result, dict):
+        result = {}
+    result["feasible"] = True
+    return result

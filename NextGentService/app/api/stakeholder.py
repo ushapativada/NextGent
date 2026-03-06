@@ -98,7 +98,7 @@ def stakeholder_message(session_id: str, message: str):
     # Store as stakeholder feedback
     append_validator_message(session_id, "user", message)
 
-    # 🔥 Reopen validation ALWAYS
+    # Reopen validation ALWAYS
     session["status"] = "validating"
 
     return {"message": "Stakeholder feedback received. Validation reopened."}

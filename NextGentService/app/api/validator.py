@@ -18,7 +18,7 @@ def start_validation(session_id: str):
     if not session:
         raise HTTPException(404, "Invalid session")
 
-    require_status(session, ["validating", "finalized", "developing"])
+    require_status(session, ["refining", "validating", "finalized", "developing"])
 
     intro_message = (
         "Validation phase started. "
@@ -46,7 +46,7 @@ def validator_chat(session_id: str, message: str):
 
     append_validator_message(session_id, "user", message)
 
-    # 🔥 any validator input reopens validation
+    # any validator input reopens validation
     update_session(session_id, status="validating")
 
     reply = validation_agent_reply(
@@ -70,24 +70,24 @@ def finalize_validation_phase(session_id: str):
 
     try:
         updated_refined_problem, updated_constraints = apply_validation_feedback(
-            refined_problem=session["refined_problem"],
-            validator_chat=session["validator_chat"],
-            primary_constraints=session["primary_constraints"],
+            refined_problem=session.get("refined_problem", {}),
+            validator_chat=session.get("validator_chat", []),
+            primary_constraints=session.get("primary_constraints", {}),
         )
 
         updated_constraints = updated_refined_problem.get(
-            "constraints", session["primary_constraints"]
+            "constraints", session.get("primary_constraints", {})
         )
 
-        print("SESSION CONSTRAINTS AFTER FINALIZE:", session["primary_constraints"])
+        print("SESSION CONSTRAINTS AFTER FINALIZE:", session.get("primary_constraints", {}))
 
         validation_result = ai_finalize(updated_refined_problem)
 
         update_session(
             session_id,
             refined_problem=updated_refined_problem,
-            primary_constraints=updated_constraints,  # ✅ USER TRUTH
-            validated_problem=validation_result,  # ✅ AI FEASIBILITY OPINION
+            primary_constraints=updated_constraints,  # USER TRUTH
+            validated_problem=validation_result,  # AI FEASIBILITY OPINION
             status="finalized",
         )
 
