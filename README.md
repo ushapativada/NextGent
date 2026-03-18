@@ -1,91 +1,90 @@
-# NextGent - AI-Powered Requirements Architect
+# NextGent (ReqArchitect) - AI-Powered Requirements Engineering Platform
 
-NextGent is a sophisticated full-stack application designed to automate and enhance requirements engineering using advanced AI agents. It leverages a modern web stack combined with powerful LLM interactions to analyze, validate, and generate system requirements.
+NextGent is a cutting-edge platform designed to automate and streamline the Software Development Life Cycle (SDLC) by acting as an AI-powered Requirements Architect. It leverages multi-agent AI systems to interview stakeholders, refine problem statements, and automatically generate comprehensive technical specifications and UML diagrams.
 
-## 🚀 Technology Stack
+## 🚀 Key Features
 
-### Frontend (`/client`)
-Built with modern web technologies for a responsive and premium user experience:
-- **Framework:** [React v19](https://react.dev/) + [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) (Modern Dark Mode UI)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/) for smooth micro-interactions
-- **Routing:** [React Router](https://reactrouter.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
+*   **Interactive Stakeholder Interviews**: An AI agent dynamically questions stakeholders to extract clear, unambiguous business requirements.
+*   **Automated Requirement Refinement**: Raw stakeholder inputs are automatically processed by a dedicated AI crew to produce clean, precise problem definitions and identify constraints/assumptions.
+*   **Technical Specification Generation**: An AI Developer agent automatically drafts detailed markdown-based technical specs (functional/non-functional requirements) tailored exactly to the refined scope.
+*   **Automated Architectural Visualization**: The platform leverages `PlantUML` syntax generation to automatically draft four essential system models:
+    *   Use Case Diagrams
+    *   Activity Diagrams
+    *   Sequence Diagrams
+    *   Class Diagrams
+*   **Stakeholder Feedback Loop**: Stakeholders can seamlessly inject feedback on generated SRS documents, visually flagging projects as "Needs Revision" for strict developer integration upon the next generation cycle.
+*   **Dynamic PDF Exporting**: Instantly compile downloadable PDF Software Requirements Specifications (SRS) customized with live dynamic project titles and embedded visual diagrams.
 
-### Backend (`/NextGentService`)
-A robust Python-based API service powering the AI logic:
-- **API Framework:** [FastAPI](https://fastapi.tiangolo.com/)
-- **AI Agents:** [CrewAI](https://www.crewai.com/) orchestrating specialized agents
-- **LLM Integration:** [LiteLLM](https://docs.litellm.ai/) with Groq (Llama 3.3 70B)
-- **Document Services:** `fpdf2` for professional PDF report generation
-- **State Management:** JSON-based session store with UTC tracking
+---
 
-## ✨ Core Features
+## 🏗️ Architecture Stack
 
-### 1. Agentic Requirements Engineering
-- **Phase 1: Questioning**: Interactive AI agent clarifies the software idea one focused question at a time.
-- **Phase 2: Validation**: AI Validator detects ambiguities, missing information, and provides clarity scores.
-- **Phase 3: Development Output**: Generates detailed Technical Specifications, assumptions, and risk assessments.
+### Backend (NextGentService)
+*   **Framework**: FastAPI (Python)
+*   **Database**: MongoDB (via `pymongo`)
+*   **AI Orchestration**: `CrewAI` & Direct LLM Inference
+*   **PDF Generation**: `fpdf`
+*   **Diagrams**: PlantUML Server Integration
 
-### 2. Modern Profile Workspace
-- **Grid Layout**: Responsive dark-themed cards for all your architectural projects.
-- **Real-time Renaming**: Inline project title editing directly from the workspace.
-- **Smart Sorting**: Filter projects by Newest First, Oldest First, or Status.
-- **Status Indicators**: Visual color-coded tracking (Questioning, Validating, Developing, Finalized, In Progress).
+### Frontend (client)
+*   **Framework**: React 18 + Vite
+*   **Styling**: Tailwind CSS + Framer Motion (Animations)
+*   **Routing**: React Router DOM (v6)
+*   **Markdown Parsing**: `react-markdown`
 
-### 3. Project Lifecycle Management
-- **Lifecycle Control**: Flexible "Exit", "Pause", or "Finish" options to manage project state.
-- **Export Options**: 
-    - **PDF Generation**: High-quality PDF report generation for Stakeholders and Developers.
-    - **Smart Copy**: Instant text-formatting export to clipboard with visual feedback.
+---
 
 ## 📂 Project Structure
 
-```
-NextGentMain/
-├── client/                 # Frontend React Application
-│   ├── src/
-│   │   ├── components/     # UI components & Page logic
-│   │   ├── UI/             # Reusable UI primitives
-│   │   └── assets/         # Branding and SVGs
-│   └── package.json
-│
-└── NextGentService/        # Backend Python Service
-    ├── app/
-    │   ├── agents/         # LLM Agent definitions (BA, Validator, Developer)
-    │   ├── api/            # API routing logic
-    │   ├── services/       # Core business logic & output builders
-    │   └── utils/          # PDF and text helpers
-    ├── requirements.txt    # Optimized dependency list
-    └── main.py             # Entry point
-```
+### `/NextGentService/app` (Backend)
+*   **`/api`**: FastAPI routers defining the core endpoints (`/stakeholder`, `/validator`, `/developer`, `/output`, `/auth`).
+*   **`/agents`**: Isolated definitions for individual AI roles (e.g., Questioning, Refining, Visualization, Developer).
+*   **`/crew`**: `CrewAI` definitions wiring multiple agents into coherent pipelines.
+*   **`/services`**: Core business logic modules (session orchestration, constraints extraction, document builders).
+*   **`/state`**: MongoDB interaction layer (`session_store.py`) handling all session persistence.
+*   **`/utils`**: Helper modules (`pdf_generator.py` and `plantuml_generator.py`).
 
-## 🛠️ Setup & Installation
+### `/client/src` (Frontend)
+*   **`/components`**: Primary application views and layouts (Dashboard, Developer Workspace, Output Viewers).
+*   **`/UI`**: Reusable low-level React components (Chat bubbles, Badges, Markdown viewers).
+*   **`/pages`**: Top-level route containers like the Auth Login or User Profile hub.
+
+---
+
+## ⚙️ Setup & Installation
+
+### Prerequisites
+*   Python 3.10+
+*   Node.js 18+
+*   MongoDB instance running locally on `mongodb://localhost:27017/`
 
 ### 1. Backend Setup
-Navigate to the service directory and set up the Python environment.
-
-```powershell
+```bash
 cd NextGentService
-
-# Setup environment and install dependencies
 python -m venv venv
-.\venv\Scripts\activate
+venv\Scripts\activate   # Windows
+# source venv/bin/activate # Mac/Linux
 pip install -r requirements.txt
-
-# Configure your environment
-# Create a .env file with your GROQ_API_KEY
-echo "GROQ_API_KEY=your_key_here" > .env
-
-# Run the Server
 python run.py
 ```
+*The backend will boot up at `http://127.0.0.1:8000`*
 
 ### 2. Frontend Setup
-```powershell
+```bash
 cd client
 npm install
 npm run dev
 ```
+*The frontend will boot up at `http://localhost:5173`*
 
-The app will be available at `http://localhost:5173`.
+---
+
+## 🔄 The SDLC Workflow
+
+1.  **Questioning**: Stakeholders initiate a project. The AI interviews them until the scope is sufficiently clear.
+2.  **Refining**: The AI summarizes the conversation, generating a dynamic project title and defining in-scope/out-of-scope rules.
+3.  **Validating**: The Stakeholder reviews the refined problem. If approved, the project transitions to the Developer.
+4.  **Developing**: The Developer views the problem and uses the AI to draft Technical Specifications.
+5.  **Visualizing**: The Developer executes the Visualization pipeline to generate the four standard UML diagrams.
+6.  **Review (Feedback)**: The Stakeholder reviews the output and provides feedback. The Developer regenerates the specs directly incorporating the requested constraints.
+7.  **Exporting**: The finalized SRS document is compiled into a polished PDF for download.

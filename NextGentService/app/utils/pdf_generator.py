@@ -2,9 +2,13 @@ from fpdf import FPDF
 import os
 
 class TechnicalSpecPDF(FPDF):
+    def __init__(self, project_name: str = "NextGent"):
+        super().__init__()
+        self.project_name = project_name
+
     def header(self):
         self.set_font('Arial', 'B', 15)
-        self.cell(0, 10, 'NextGent - Technical Specification', 0, 1, 'C')
+        self.cell(0, 10, f'{self.project_name} - Technical Specification', 0, 1, 'C')
         self.ln(10)
 
     def footer(self):
@@ -42,8 +46,8 @@ class TechnicalSpecPDF(FPDF):
                 if clean_line.strip() or self.get_y() > 30: # Avoid excessive newlines at top
                     self.multi_cell(0, 5, clean_line)
 
-def generate_pdf(content: str, filename: str):
-    pdf = TechnicalSpecPDF()
+def generate_pdf(content: str, filename: str, project_name: str = "NextGent"):
+    pdf = TechnicalSpecPDF(project_name=project_name)
     pdf.add_page()
     
     # Simple parsing to split sections if possible, or just dump content

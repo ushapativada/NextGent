@@ -47,7 +47,7 @@ function DynamicSection({ title, value }) {
             {Array.isArray(value) && <BulletList items={value} />}
 
             {/* OBJECT */}
-            {typeof value === "object" && !Array.isArray(value) && (
+            {typeof value === "object" && value !== null && !Array.isArray(value) && (
                 <KeyValueList obj={value} />
             )}
         </div>
@@ -67,6 +67,7 @@ function BulletList({ items }) {
 }
 
 function KeyValueList({ obj }) {
+    if (!obj || typeof obj !== 'object') return null;
     return (
         <ul className="list-disc ml-6 space-y-2">
             {Object.entries(obj).map(([key, value]) => {

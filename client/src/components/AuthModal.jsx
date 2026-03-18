@@ -1,26 +1,56 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, Lock, User, ArrowRight } from "lucide-react";
+import { X, Mail, Lock, User, ArrowRight, Eye, EyeOff, Shield } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AuthModal({ isOpen, onClose }) {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Mock Login Handler
-  const handleAuth = (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("Stakeholder");
+  const [error, setError] = useState(null);
+
+  // Real Login Handler
+  const handleAuth = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      // For demo, we just assume success and redirect
-      // In a real app, you'd save token to localStorage/Context here
-      localStorage.setItem("authToken", "demo-token");
+    const endpoint = isLogin ? "/login" : "/register";
+    const payload = isLogin 
+      ? { email, password } 
+      : { email, password, full_name: name, role: role };
+
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/auth${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.detail || "Authentication failed.");
+      }
+
+      // Secure successful login
+      localStorage.setItem("authToken", data.access_token || "authenticated");
+      localStorage.setItem("userEmail", data.email || email);
+      localStorage.setItem("userRole", data.role || "Stakeholder");
+      
+      onClose();
       navigate("/profile");
-    }, 1500);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -71,21 +101,49 @@ export default function AuthModal({ isOpen, onClose }) {
 
               {/* Form */}
               <form onSubmit={handleAuth} className="space-y-4">
-                {!isLogin && (
-                  <div className="space-y-1">
-                    <label className="text-xs font-slate-medium text-zinc-500 uppercase tracking-wider">
-                      Full Name
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
-                      <input
-                        type="text"
-                        placeholder="John Doe"
-                        className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl py-3 pl-10 pr-4 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-slate"
-                        required
-                      />
+                {error && (
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-3 rounded-xl text-sm font-slate flex items-start gap-2">
+                        <span className="mt-0.5">•</span>
+                        <span>{error}</span>
                     </div>
-                  </div>
+                )}
+                
+                {!isLogin && (
+                  <>
+                      <div className="space-y-1">
+                        <label className="text-xs font-slate-medium text-zinc-500 uppercase tracking-wider">
+                          Full Name
+                        </label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
+                          <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="John Doe"
+                            className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl py-3 pl-10 pr-4 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-slate"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                          <label className="text-xs font-slate-medium text-zinc-500 uppercase tracking-wider">
+                              Account Role
+                          </label>
+                          <div className="relative">
+                              <Shield className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
+                              <select
+                                  value={role}
+                                  onChange={(e) => setRole(e.target.value)}
+                                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl py-3 pl-10 pr-4 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-slate appearance-none cursor-pointer"
+                              >
+                                  <option value="Stakeholder">Stakeholder</option>
+                                  <option value="Developer">Developer</option>
+                              </select>
+                              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-zinc-500"></div>
+                          </div>
+                      </div>
+                  </>
                 )}
 
                 <div className="space-y-1">
@@ -96,6 +154,8 @@ export default function AuthModal({ isOpen, onClose }) {
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
                     <input
                       type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@company.com"
                       className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl py-3 pl-10 pr-4 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-slate"
                       required
@@ -110,11 +170,21 @@ export default function AuthModal({ isOpen, onClose }) {
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl py-3 pl-10 pr-4 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-slate"
+                      className="w-full bg-zinc-900/50 border border-zinc-800 rounded-xl py-3 pl-10 pr-12 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-slate"
                       required
                     />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors p-1"
+                        tabIndex="-1"
+                    >
+                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
                   </div>
                 </div>
 

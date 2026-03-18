@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import FileResponse
-from app.state.session_store import get_session, update_session
+from app.state.session_store import get_session, update_session, append_validator_message
 from app.services.output_builder import (
     build_stakeholder_output,
     build_developer_output,
@@ -57,6 +57,20 @@ def exit_project(session_id: str):
     # Update status to in_progress
     update_session(session_id, status="in_progress")
     return {"message": "Project exited (in progress)"}
+
+@router.post("/{session_id}/feedback")
+def provide_srs_feedback(session_id: str, feedback: str = Query(...)):
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(404, "Invalid session")
+    
+    # Send feedback to the developer flow by appending to validator chat (which acts as instructions)
+    # Alternatively, store it explicitly as "srs_feedback" so developer agent can use it on next gen
+    append_validator_message(session_id, "user", f"Stakeholder Feedback: {feedback}")
+    
+    # Putting status back to developing will force the Developer agent to re-trigger or allow manual re-trigger
+    update_session(session_id, status="developing", has_feedback=True)
+    return {"message": "Feedback received. Status reverted to developing."}
 
 
 @router.post("/pause/{session_id}")
@@ -195,5 +209,6 @@ def download_output_pdf(output_type: str, session_id: str):
         raise HTTPException(400, "Invalid output type")
 
     # Generate PDF
-    file_path = generate_pdf(content, filename)
+    project_name = session.get("project_name", "NextGent")
+    file_path = generate_pdf(content, filename, project_name)
     return FileResponse(file_path, media_type="application/pdf", filename=filename)

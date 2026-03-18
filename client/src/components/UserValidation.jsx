@@ -3,8 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FileCheck, AlertCircle, RefreshCw, Send, CheckCircle, ShieldAlert, ArrowLeft, X, Mic, StopCircle } from "lucide-react";
 import ChatMessage from "../UI/ChatMessage";
 import ProblemOverview from "../UI/ProblemRefined";
-
-const API = "http://localhost:8000/validator";
+const API = "http://127.0.0.1:8000/validator";
 
 export default function UserValidation() {
     const navigate = useNavigate();
@@ -38,6 +37,7 @@ export default function UserValidation() {
 
                 if (!res.ok) {
                     if (res.status === 404) throw new Error("Session expired or invalid.");
+                    if (res.status === 409) throw new Error("Stakeholder questions not complete. Please finish answering the AI's questions before validating.");
                     throw new Error("Failed to connect to validation service.");
                 }
 
@@ -157,23 +157,33 @@ export default function UserValidation() {
     if (error) {
         return (
             <div className="h-[calc(100vh-140px)] flex flex-col items-center justify-center text-center px-4">
-                <div className="bg-red-500/10 p-6 rounded-2xl border border-red-500/20 mb-6">
+                <div className="bg-red-500/10 p-6 rounded-2xl border border-red-500/20 mb-6 backdrop-blur-sm">
                     <AlertCircle size={48} className="text-red-500 mx-auto mb-4" />
-                    <h2 className="text-xl font-slate-bold text-white mb-2">Connection Error</h2>
-                    <p className="text-zinc-400 font-slate">{error}</p>
+                    <h2 className="text-xl font-slate-bold text-white mb-2">Access Denied</h2>
+                    <p className="text-zinc-400 font-slate text-sm max-w-sm mx-auto">{error}</p>
                 </div>
-                <button
-                    onClick={() => navigate("/dashboard")}
-                    className="px-6 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-slate-medium transition-colors"
-                >
-                    Return to Dashboard
-                </button>
+                <div className="flex gap-4">
+                    {error.includes("Stakeholder") && (
+                        <button
+                            onClick={() => navigate("/dashboard")}
+                            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-slate-medium transition-colors"
+                        >
+                            Resume Questionnaire
+                        </button>
+                    )}
+                    <button
+                        onClick={() => navigate("/dashboard")}
+                        className="px-6 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-slate-medium transition-colors border border-white/5"
+                    >
+                        Return to Dashboard
+                    </button>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="h-[calc(100vh-140px)] max-w-5xl mx-auto flex gap-6">
+        <div className="h-[calc(100vh-140px)] w-full max-w-[1700px] px-4 sm:px-8 mx-auto flex gap-6">
 
             {/* LEFT: Info Panel (Refined Problem) */}
             <div className="w-1/3 hidden lg:block h-full overflow-hidden bg-zinc-900/50 border border-white/5 rounded-2xl">

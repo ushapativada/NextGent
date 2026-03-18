@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import OutputViewer from "../UI/OutputViewer";
-import { Copy, Check, X } from "lucide-react";
+import { Copy, Check, X, Send } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-
-const API = "http://localhost:8000/output";
+const API = "http://127.0.0.1:8000/output";
 
 export default function UserOutput() {
     const sessionId = sessionStorage.getItem("sessionId");
@@ -13,6 +13,10 @@ export default function UserOutput() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [copied, setCopied] = useState(false);
+    const [feedbackText, setFeedbackText] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const navigate = useNavigate();
+    const userRole = localStorage.getItem("userRole") || "Stakeholder";
 
     const fetchOutput = async (type) => {
         if (!sessionId) return;
@@ -64,6 +68,28 @@ export default function UserOutput() {
         });
     };
 
+    const submitFeedback = async () => {
+        if (!sessionId || !feedbackText.trim()) return;
+
+        setIsSubmitting(true);
+        try {
+            const res = await fetch(`${API}/${sessionId}/feedback?feedback=${encodeURIComponent(feedbackText)}`, {
+                method: "POST"
+            });
+            if (res.ok) {
+                // Session is now back to 'developing', go to profile so dashboard doesn't start a new empty project
+                sessionStorage.removeItem("sessionId");
+                navigate("/profile");
+            } else {
+                setError("Failed to submit feedback.");
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     // Auto-fetch developer output on load
     useEffect(() => {
         if (sessionId) {
@@ -73,7 +99,7 @@ export default function UserOutput() {
 
     return (
         <div className="min-h-screen bg-black text-white flex justify-center px-4">
-            <div className="w-full max-w-4xl pt-20 space-y-6">
+            <div className="w-full max-w-[1400px] pt-8 space-y-6">
 
                 {/* HEADER */}
                 <div className="flex items-center justify-between">
@@ -203,6 +229,41 @@ export default function UserOutput() {
                     )}
 
                 </div>
+
+                {/* STAKEHOLDER FEEDBACK SECTION */}
+                {!loading && data && activeView === "stakeholder" && userRole === "Stakeholder" && (
+                    <div className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 mt-6 shadow-2xl">
+                        <h2 className="text-lg font-slate-bold text-white mb-2">Request Revisions</h2>
+                        <p className="text-zinc-400 text-sm mb-4 font-slate">
+                            Is there anything missing or incorrect in the generated requirements? Provide feedback below, and the AI Developer will regenerate the documents.
+                        </p>
+                        <div className="relative">
+                            <textarea
+                                value={feedbackText}
+                                onChange={(e) => setFeedbackText(e.target.value)}
+                                placeholder="E.g., Please add a feature for password recovery..."
+                                className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white font-slate text-sm outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/50 min-h-[100px] resize-y"
+                                disabled={isSubmitting}
+                            />
+                            <button
+                                onClick={submitFeedback}
+                                disabled={!feedbackText.trim() || isSubmitting}
+                                className={`absolute bottom-3 right-3 px-4 py-2 rounded-lg font-slate-bold text-sm flex items-center gap-2 transition-all ${
+                                    feedbackText.trim() && !isSubmitting
+                                        ? "bg-yellow-400 text-black hover:bg-yellow-500 shadow-lg shadow-yellow-500/20"
+                                        : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+                                }`}
+                            >
+                                {isSubmitting ? "Submitting..." : (
+                                    <>
+                                        Submit Feedback
+                                        <Send size={14} />
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                )}
 
             </div>
 

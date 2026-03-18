@@ -21,11 +21,18 @@ def generate_specs(session_id: str):
     if not refined_problem:
         raise HTTPException(400, "No refined requirements found. Complete validation first.")
 
+    chat = session.get("validator_chat", [])
+    feedback_messages = [
+        msg["content"].replace("Stakeholder Feedback:", "").strip() 
+        for msg in chat 
+        if msg.get("role") == "user" and "Stakeholder Feedback:" in msg.get("content", "")
+    ]
+
     # Call AI Agent
-    specs_markdown = generate_technical_specs(refined_problem)
+    specs_markdown = generate_technical_specs(refined_problem, feedback_messages)
 
     # Save to session
-    update_session(session_id, developer_output=specs_markdown, status="developing")
+    update_session(session_id, developer_output=specs_markdown, status="developing", has_feedback=False)
 
     return {"specs": specs_markdown}
 
@@ -39,6 +46,22 @@ def get_specs(session_id: str):
     # Return null instead of 404/400 to avoid console errors
     return {"specs": specs}
 
+@router.get("/feedback")
+def get_feedback(session_id: str):
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(404, "Invalid session")
+    
+    # Filter the validator_chat for explicit stakeholder feedback
+    chat = session.get("validator_chat", [])
+    feedback_messages = [
+        msg["content"].replace("Stakeholder Feedback:", "").strip() 
+        for msg in chat 
+        if msg.get("role") == "user" and "Stakeholder Feedback:" in msg.get("content", "")
+    ]
+    
+    return {"has_feedback": session.get("has_feedback", False), "feedback": feedback_messages}
+
 @router.get("/download")
 def download_specs(session_id: str):
     session = get_session(session_id)
@@ -49,7 +72,8 @@ def download_specs(session_id: str):
     if not specs:
         raise HTTPException(400, "No specs generated yet.")
 
+    project_name = session.get("project_name", "NextGent")
     filename = f"specs_{session_id}.pdf"
-    file_path = generate_pdf(str(specs), filename)
+    file_path = generate_pdf(str(specs), filename, project_name)
 
     return FileResponse(file_path, media_type="application/pdf", filename="Technical_Specs.pdf")

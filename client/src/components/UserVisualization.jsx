@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2, AlertCircle, Sparkles, Image as ImageIcon, ChevronLeft, ChevronRight, Workflow, ArrowRight } from "lucide-react";
-
-const API = "http://localhost:8000/visualization";
+const API = "http://127.0.0.1:8000/visualization";
 
 const DiagramCard = ({ title, rawLink, children, gradient }) => (
     <div className="group relative overflow-hidden rounded-3xl bg-zinc-900/40 border border-white/5 p-8 h-full flex flex-col transition-all hover:border-white/10 hover:bg-zinc-900/60 backdrop-blur-md">
@@ -116,7 +115,7 @@ export default function UserVisualization() {
 
     const handleDownloadSRS = async () => {
         try {
-            const res = await fetch(`http://localhost:8000/output/download/srs/${sessionId}`);
+            const res = await fetch(`http://127.0.0.1:8000/output/download/srs/${sessionId}`);
             if (!res.ok) throw new Error("Output not ready yet");
             const blob = await res.blob();
             const url = window.URL.createObjectURL(blob);
@@ -244,7 +243,7 @@ export default function UserVisualization() {
     ].filter(s => s.rawText);
 
     return (
-        <div className="max-w-6xl mx-auto h-[calc(100vh-140px)] flex flex-col">
+        <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 h-[calc(100vh-140px)] flex flex-col">
             <div className="flex items-center justify-between mb-6 px-6 py-6 border-b border-white/5 shrink-0">
                 <div>
                      <h1 className="text-3xl font-slate-bold text-white flex items-center gap-3">
@@ -305,7 +304,7 @@ export default function UserVisualization() {
                 )}
 
                 {diagrams && slides.length > 0 && (
-                    <div className="relative w-full max-w-5xl h-full flex flex-col items-center">
+                    <div className="relative w-full max-w-[1400px] h-full flex flex-col items-center">
                          {/* Carousel Controls */}
                          <div className="absolute top-1/2 -translate-y-1/2 -left-16 z-10 hidden xl:flex">
                             <button onClick={prevSlide} className="p-3 rounded-full bg-zinc-800 border border-white/5 text-zinc-400 hover:text-white hover:bg-zinc-700 transition-all shadow-xl">

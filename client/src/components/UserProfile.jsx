@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clock, MessageSquare, CheckCircle, Construction, ChevronRight, User, SortDesc, Filter, Plus, Code2, Edit2, Check, X as CloseIcon, Trash2 } from "lucide-react";
-
-const API = "http://localhost:8000/stakeholder";
+const API = "http://127.0.0.1:8000/stakeholder";
 
 export default function UserProfile() {
     const navigate = useNavigate();
@@ -11,6 +10,7 @@ export default function UserProfile() {
     const [sortOrder, setSortOrder] = useState("newest"); // "newest", "oldest", "status"
     const [editingId, setEditingId] = useState(null);
     const [editValue, setEditValue] = useState("");
+    const userRole = localStorage.getItem("userRole") || "Stakeholder";
 
     const fetchSessions = () => {
         setLoading(true);
@@ -40,7 +40,12 @@ export default function UserProfile() {
         } else if (session.status === "validating") {
             navigate("/validator");
         } else if (["finalized", "developing", "in_progress"].includes(session.status)) {
-            navigate("/developer");
+            // Stakeholders can't view /developer, send them to validator to see the approved requirements
+            if (userRole === "Stakeholder") {
+                navigate("/output");
+            } else {
+                navigate("/developer");
+            }
         } else {
             navigate("/dashboard");
         }
@@ -128,7 +133,7 @@ export default function UserProfile() {
     });
 
     return (
-        <div className="max-w-7xl mx-auto h-[calc(100vh-140px)] flex flex-col pt-6 px-6">
+        <div className="w-full max-w-[1700px] mx-auto h-[calc(100vh-140px)] flex flex-col pt-6 px-4 md:px-8">
 
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
@@ -227,9 +232,16 @@ export default function UserProfile() {
                                     {session.status === 'in_progress' && <Clock size={20} />}
                                     {session.status === 'finalized' && <CheckCircle size={20} />}
                                 </div>
-                                <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getStatusColor(session.status)}`}>
-                                    {session.status}
-                                </span>
+                                <div className="flex gap-2">
+                                    {session.has_feedback && (userRole === "Developer" || userRole === "Admin") && (
+                                        <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border text-yellow-400 bg-yellow-500/10 border-yellow-500/20 shadow-[0_0_10px_rgba(234,179,8,0.2)]">
+                                            Feedback Received
+                                        </span>
+                                    )}
+                                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getStatusColor(session.status)}`}>
+                                        {session.status}
+                                    </span>
+                                </div>
                             </div>
 
                             {/* Card Content */}
@@ -268,25 +280,34 @@ export default function UserProfile() {
                                             <h3 className="text-lg font-slate-bold text-white mb-2 group-hover:text-blue-400 transition-colors truncate flex-1">
                                                 {session.project_name || `Project ${session.session_id.slice(0, 8)}`}
                                             </h3>
-                                            <div className="flex gap-1 opactiy-0 group-hover:opacity-100 transition-opacity">
-                                                <button
-                                                    onClick={e => startEditing(e, session)}
-                                                    className="p-1.5 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-blue-400 transition-all opacity-0 group-hover:opacity-100"
-                                                    title="Rename project"
-                                                >
-                                                    <Edit2 size={14} />
-                                                </button>
-                                                <button
-                                                    onClick={e => handleDelete(e, session)}
-                                                    className="p-1.5 hover:bg-red-500/10 rounded-lg text-zinc-500 hover:text-red-400 transition-all opacity-0 group-hover:opacity-100"
-                                                    title="Delete project"
-                                                >
-                                                    <Trash2 size={14} />
-                                                </button>
-                                            </div>
+                                            {userRole !== "Stakeholder" && (
+                                                <div className="flex gap-1 opactiy-0 group-hover:opacity-100 transition-opacity">
+                                                    <button
+                                                        onClick={e => startEditing(e, session)}
+                                                        className="p-1.5 hover:bg-white/5 rounded-lg text-zinc-500 hover:text-blue-400 transition-all opacity-0 group-hover:opacity-100"
+                                                        title="Rename project"
+                                                    >
+                                                        <Edit2 size={14} />
+                                                    </button>
+                                                    <button
+                                                        onClick={e => handleDelete(e, session)}
+                                                        className="p-1.5 hover:bg-red-500/10 rounded-lg text-zinc-500 hover:text-red-400 transition-all opacity-0 group-hover:opacity-100"
+                                                        title="Delete project"
+                                                    >
+                                                        <Trash2 size={14} />
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                         <p className="text-zinc-500 text-xs font-slate leading-relaxed line-clamp-2">
-                                            Last updated on {formatDate(session.updated_at)} at {new Date(session.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            Last updated on {new Date(session.updated_at).toLocaleString(undefined, {
+                                                month: 'short', 
+                                                day: 'numeric', 
+                                                year: 'numeric', 
+                                                hour: 'numeric', 
+                                                minute: '2-digit',
+                                                hour12: true
+                                            })}
                                         </p>
                                     </div>
                                 )}

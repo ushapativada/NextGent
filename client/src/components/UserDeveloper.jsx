@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Download, Code2, ListChecks, ShieldCheck, Loader2, AlertCircle, Sparkles, ChevronLeft, ChevronRight, FileText, ArrowRight } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-
-const API = "http://localhost:8000/developer";
+const API = "http://127.0.0.1:8000/developer";
 
 // --- STYLED COMPONENTS ---
 
 const SpecCard = ({ title, icon: Icon, children, gradient }) => (
-    <div className="group relative overflow-hidden rounded-3xl bg-zinc-900/40 border border-white/5 p-8 h-full flex flex-col transition-all hover:border-white/10 hover:bg-zinc-900/60 backdrop-blur-md">
+    <div className="group relative overflow-hidden rounded-3xl bg-zinc-900/40 border border-white/5 p-8 h-full flex flex-col transition-all hover:border-white/10 hover:bg-zinc-900/60">
         <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${gradient} opacity-50 group-hover:opacity-100 transition-opacity`} />
 
         <div className="flex items-center gap-4 mb-6 shrink-0">
@@ -18,10 +17,8 @@ const SpecCard = ({ title, icon: Icon, children, gradient }) => (
             <h2 className="text-2xl font-slate-bold text-white tracking-tight">{title}</h2>
         </div>
 
-        <div className="flex-1 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-zinc-700 hover:scrollbar-thumb-zinc-600">
-            <div className="prose prose-invert max-w-none prose-p:text-zinc-400 prose-p:leading-relaxed prose-li:text-zinc-400 prose-li:marker:text-zinc-600 prose-strong:text-zinc-200">
-                {children}
-            </div>
+        <div className="flex-1 overflow-y-auto pr-3 scrollbar-thin scrollbar-thumb-zinc-700 hover:scrollbar-thumb-zinc-600 text-zinc-300">
+            {children}
         </div>
     </div>
 );
@@ -29,9 +26,10 @@ const SpecCard = ({ title, icon: Icon, children, gradient }) => (
 // MD Components
 const mdComponents = {
     h1: () => null,
-    h2: () => null,
-    h3: ({ node, ...props }) => <h3 className="text-lg font-slate-bold text-white mt-6 mb-3 flex items-center gap-2" {...props} />,
-    p: ({ node, ...props }) => <p className="text-zinc-400 leading-7 mb-4 text-sm font-slate" {...props} />,
+    h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-white mt-10 mb-4 pb-2 border-b border-white/20" {...props} />,
+    h3: ({ node, ...props }) => <h3 className="text-xl font-semibold text-blue-100 mt-8 mb-3" {...props} />,
+    h4: ({ node, ...props }) => <h4 className="text-lg font-medium text-zinc-100 mt-6 mb-2" {...props} />,
+    p: ({ node, ...props }) => <p className="text-zinc-300 leading-7 mb-4 text-sm" {...props} />,
     ul: ({ node, ...props }) => <ul className="space-y-3 mb-6" {...props} />,
     ol: ({ node, ...props }) => <ol className="list-decimal list-outside ml-5 space-y-2 mb-4 text-zinc-400 text-sm" {...props} />,
     li: ({ node, ...props }) => (
@@ -58,6 +56,8 @@ export default function UserDeveloper() {
         functional: null,
         nonFunctional: null
     });
+    
+    const [feedbackData, setFeedbackData] = useState({ has_feedback: false, feedback: [] });
 
     useEffect(() => {
         if (!sessionId) {
@@ -79,7 +79,20 @@ export default function UserDeveloper() {
                 setLoading(false);
             }
         };
+        const fetchFeedback = async () => {
+             try {
+                 const res = await fetch(`${API}/feedback?session_id=${sessionId}`);
+                 if (res.ok) {
+                     const data = await res.json();
+                     setFeedbackData(data);
+                 }
+             } catch (e) {
+                 // Silent fail
+             }
+        };
+
         fetchSpecs();
+        fetchFeedback();
 
     }, [sessionId]);
 
@@ -135,6 +148,7 @@ export default function UserDeveloper() {
                 throw new Error(data.detail || "Failed to generate specs.");
             }
             setSpecs(data.specs);
+            setFeedbackData({ has_feedback: false, feedback: [] }); // Clear feedback after successful generation
         } catch (err) {
             console.error(err);
             setError(err.message);
@@ -192,7 +206,7 @@ export default function UserDeveloper() {
     ].filter(s => s.content); // Only show slides that have content
 
     return (
-        <div className="max-w-6xl mx-auto h-[calc(100vh-140px)] flex flex-col">
+        <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 h-[calc(100vh-140px)] flex flex-col">
 
             {/* Header */}
             <div className="flex items-center justify-between mb-6 px-6 py-6 border-b border-white/5 shrink-0">
@@ -243,6 +257,29 @@ export default function UserDeveloper() {
                 </div>
             </div>
 
+            {/* Stakeholder Feedback Panel */}
+            {feedbackData.has_feedback && feedbackData.feedback.length > 0 && (
+                <div className="mx-6 mb-6 bg-[#1a1005] border border-yellow-500/30 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-yellow-500"></div>
+                    <div className="flex items-center gap-3 mb-4">
+                        <AlertCircle className="text-yellow-500" size={24} />
+                        <h2 className="text-lg font-slate-bold text-yellow-500">Stakeholder Requested Revisions</h2>
+                    </div>
+                    <div className="space-y-3">
+                        {feedbackData.feedback.map((msg, idx) => (
+                            <div key={idx} className="bg-black/40 border border-yellow-500/10 rounded-xl p-4">
+                                <p className="text-zinc-300 font-slate text-sm leading-relaxed">"{msg}"</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-yellow-500/10 flex justify-end">
+                       <p className="text-xs text-yellow-500/80 font-slate-medium flex items-center gap-1">
+                           <Sparkles size={12}/> Click Generate Docs to apply these revisions
+                       </p>
+                    </div>
+                </div>
+            )}
+
             {/* Content Area */}
             <div className="flex-1 px-6 pb-12 overflow-hidden flex flex-col items-center justify-center relative">
 
@@ -259,7 +296,7 @@ export default function UserDeveloper() {
                 )}
 
                 {specs && slides.length > 0 && (
-                    <div className="relative w-full max-w-4xl h-full flex flex-col">
+                    <div className="relative w-full max-w-6xl xl:max-w-7xl h-full flex flex-col">
 
                         {/* Carousel Controls */}
                         <div className="absolute top-1/2 -translate-y-1/2 -left-16 z-10 hidden xl:flex">

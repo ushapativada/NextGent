@@ -34,9 +34,12 @@ def refine_session_problem(session_id: str):
 
     primary_constraints = extract_primary_constraints(session["raw_problem"])
 
+    project_name = refined_problem.get("project_name", f"Project {session_id[:8]}")
+
     # ✅ SINGLE source of truth
     update_session(
         session_id,
+        project_name=project_name,
         refined_problem=refined_problem,
         primary_constraints=primary_constraints,
         status="validating",

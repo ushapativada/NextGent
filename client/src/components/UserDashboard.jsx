@@ -4,8 +4,7 @@ import { Send, Cpu, Sparkles, StopCircle, ChevronRight, Mic } from "lucide-react
 import { motion } from "framer-motion";
 import ChatMessage from "../UI/ChatMessage";
 import LineReveal from "../UI/LineReveal";
-
-const API = "http://localhost:8000/stakeholder";
+const API = "http://127.0.0.1:8000/stakeholder";
 
 export default function UserDashboard() {
     const navigate = useNavigate();
@@ -23,8 +22,13 @@ export default function UserDashboard() {
         }
     }, [chat, loading]);
 
+    const isInitializing = useRef(false);
+
     // 1️⃣ START OR RESUME SESSION
     useEffect(() => {
+        if (isInitializing.current) return;
+        isInitializing.current = true;
+
         const initSession = async () => {
             const existingId = sessionStorage.getItem("sessionId");
 
@@ -129,7 +133,7 @@ export default function UserDashboard() {
     };
 
     return (
-        <div className="flex flex-col h-[calc(100vh-140px)] max-w-4xl mx-auto relative">
+        <div className="flex flex-col h-[calc(100vh-140px)] w-full max-w-[1400px] px-4 mx-auto relative">
             {/* Header / Context */}
             <div className="flex items-center justify-between mb-6 px-4">
                 <div className="flex items-center gap-3">
@@ -147,8 +151,8 @@ export default function UserDashboard() {
                             // "Saving" is effectively just keeping the ID in history.
                             // We can just clear the current session ID from storage to "close" it and return to home
                             sessionStorage.removeItem("sessionId");
-                            // Optionally redirect to dashboard/home
-                            window.location.href = "/dashboard";
+                            // Re-route to profile so dashboard doesn't start a new session
+                            window.location.href = "/profile";
                         }}
                         className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-slate-medium rounded-lg transition-colors border border-white/5"
                     >

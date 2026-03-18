@@ -8,6 +8,7 @@ import UserVisualization from "./components/UserVisualization";
 import UserOutput from "./components/UserOutput";
 import UserProfile from "./components/UserProfile";
 import LandingPage from "./pages/LandingPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   return (
@@ -18,12 +19,41 @@ export default function App() {
 
         {/* Protected Application Routes */}
         <Route element={<UserLayout />}>
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/validator" element={<UserValidation />} />
-          <Route path="/developer" element={<UserDeveloper />} />
-          <Route path="/visualization" element={<UserVisualization />} />
-          <Route path="/output" element={<UserOutput />} />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/dashboard" element={
+            <ProtectedRoute allowedRoles={["Stakeholder"]}>
+              <UserDashboard />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/validator" element={
+            <ProtectedRoute allowedRoles={["Stakeholder"]}>
+              <UserValidation />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/developer" element={
+            <ProtectedRoute allowedRoles={["Developer"]}>
+              <UserDeveloper />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/visualization" element={
+            <ProtectedRoute allowedRoles={["Developer"]}>
+              <UserVisualization />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/output" element={
+            <ProtectedRoute allowedRoles={["Developer", "Stakeholder"]}>
+              <UserOutput />
+            </ProtectedRoute>
+          } />
         </Route>
       </Routes>
     </BrowserRouter>

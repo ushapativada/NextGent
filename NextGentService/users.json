@@ -1,0 +1,26 @@
+{
+    "ushapativada1610@gmail.com": {
+        "email": "ushapativada1610@gmail.com",
+        "full_name": "ushapativada",
+        "password": "Usha@2005",
+        "role": "Admin"
+    },
+    "gurram@gmail.com": {
+        "email": "gurram@gmail.com",
+        "full_name": "Gurram",
+        "password": "gurram@2004",
+        "role": "Stakeholder"
+    },
+    "prashanti@gmail.com": {
+        "email": "prashanti@gmail.com",
+        "full_name": "Prashanti",
+        "password": "prashanti@2004",
+        "role": "Developer"
+    },
+    "usha@gmail.com": {
+        "email": "usha@gmail.com",
+        "full_name": "Usha",
+        "password": "usha",
+        "role": "Stakeholder"
+    }
+}
